@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta charset="utf-8" />
+    <title>Levoh - Mapa de Rastreamento</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" />
+    <link rel="apple-touch-icon" href="pages/ico/60.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="pages/ico/76.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="pages/ico/120.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="pages/ico/152.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <link href="assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/jquery-scrollbar/jquery.scrollbar.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="assets/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="assets/plugins/switchery/css/switchery.min.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="pages/css/pages-icons.css" rel="stylesheet" type="text/css">
+    <link class="main-stylesheet" href="pages/css/pages.css" rel="stylesheet" type="text/css" />
+      <link class="main-stylesheet" href="assets/css/style.min.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body class="fixed-header no-header">
+    <!-- BEGIN SIDEBPANEL-->
+    <nav class="page-sidebar" data-pages="sidebar">
+
+      <!-- BEGIN SIDEBAR MENU HEADER-->
+      <div class="sidebar-header">
+        <img src="assets/img/logo_white.png" alt="logo" class="brand" data-src="assets/img/logo_white.png" data-src-retina="assets/img/logo_white_2x.png" width="78" height="22">
+        <div class="sidebar-header-controls">
+          <button type="button" class="btn btn-link hidden-md-down" data-toggle-pin="sidebar"><i class="fa fs-12"></i>
+          </button>
+        </div>
+      </div>
+      <!-- END SIDEBAR MENU HEADER-->
+      <!-- START SIDEBAR MENU -->
+      <div class="sidebar-menu">
+        <!-- BEGIN SIDEBAR MENU ITEMS-->
+        <ul class="menu-items">
+          <li class="m-t-30 ">
+            <a href="index.html" class="detailed">
+              <span class="title">Mapa</span>
+              <span class="details">Rastreamento de Frota</span>
+            </a>
+            <span class="bg-success icon-thumbnail"><i class="pg-map"></i></span>
+          </li>
+        </ul>
+        <div class="clearfix"></div>
+      </div>
+      <!-- END SIDEBAR MENU -->
+    </nav>
+    <!-- END SIDEBAR -->
+    <!-- END SIDEBPANEL-->
+    <!-- START PAGE-CONTAINER -->
+    <div class="page-container ">
+      <!-- START HEADER -->
+      <div class="header transparent">
+        <!-- START MOBILE SIDEBAR TOGGLE -->
+        <a href="#" class="btn-link toggle-sidebar hidden-lg-up pg pg-menu" data-toggle="sidebar" >
+        </a>
+        <!-- END MOBILE SIDEBAR TOGGLE -->
+        <div class="">
+          <div class="brand inline">
+            <img src="assets/img/logo.png" alt="logo" data-src="assets/img/logo.png" data-src-retina="assets/img/logo_2x.png" width="92" height="25">
+          </div>
+        </div>
+        <div class="d-flex align-items-center box-branco">
+          <!-- START User Info-->
+          <div class="pull-left p-r-10 fs-14 font-heading hidden-md-down">
+            <span class="text-master">Olá,</span> <span class="semi-bold">#USERNAME#</span>! 
+          </div>
+          
+          <!-- END User Info-->
+          <a href="#" class="header-icon pg pg-power btn-link m-l-10 sm-no-margin d-inline-block" data-toggle="tooltip" data-placement="left" title="Encerrar sessão"></a>
+        </div>
+      </div>
+      <!-- END HEADER -->
+      <!-- START PAGE CONTENT WRAPPER -->
+      <div class="page-content-wrapper full-height">
+        <!-- START PAGE CONTENT -->
+        <div class="content full-width full-height overlay-footer">
+          <!-- START CONTENT INNER -->
+          <div class="map-controls">
+            <div class="pull-left">
+              <div class="btn-group btn-group-vertical" data-toggle="buttons-radio">
+                <button id="map-zoom-in" class="btn btn-success btn-xs"><i class="fa fa-plus"></i>
+                </button>
+                <button id="map-zoom-out" class="btn btn-success btn-xs"><i class="fa fa-minus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Map -->
+          <div class="map-container full-width full-height">
+            <div id="google-map" class="full-width full-height"></div>
+          </div>
+            
+            <script>
+        // The following example creates complex markers to indicate beaches near
+        // Sydney, NSW, Australia. Note that the anchor is set to (0,32) to correspond
+        // to the base of the flagpole.
+
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('google-map'), {
+                zoom: 15,
+                center: {
+                    lat: -5.8321357,
+                    lng: -35.2053167
+                },
+                disableDefaultUI: true
+            });
+
+            setMarkers(map);
+        }
+
+        // Data for the markers consisting of a name, a LatLng and a zIndex for the
+        // order in which these markers should display on top of each other.
+        var vehicles = [
+            ['Nome do Usuário', -5.825151,-35.2131015, '4', 4],
+            ['Nome do Usuário', -5.833638,-35.211957, '5', 5],
+            ['Nome do Usuário', -5.830487,-35.2081454, '3', 3],
+            ['Nome do Usuário', -5.8383047,-35.2054156, '2', 2],
+            ['Nome do Usuário', -5.8327597,-35.2025073, '1', 1]
+        ];
+
+        function setMarkers(map) {
+            // Adds markers to the map.
+
+            // Marker sizes are expressed as a Size of X,Y where the origin of the image
+            // (0,0) is located in the top left of the image.
+
+            // Origins, anchor positions and coordinates of the marker increase in the X
+            // direction to the right and in the Y direction down.
+            var image = {
+                url: 'https://i.imgur.com/i5fv2wL.png',
+                // This marker is 20 pixels wide by 32 pixels high.
+                size: new google.maps.Size(32, 32),
+                // The origin for this image is (0, 0).
+                origin: new google.maps.Point(0, 0),
+                // The anchor for this image is the base of the flagpole at (0, 32).
+                anchor: new google.maps.Point(0, 32),
+            };
+            // Shapes define the clickable region of the icon. The type defines an HTML
+            // <area> element 'poly' which traces out a polygon as a series of X,Y points.
+            // The final coordinate closes the poly by connecting to the first coordinate.
+            var shape = {
+                coords: [1, 1, 1, 20, 18, 20, 18, 1],
+                type: 'poly'
+            };
+            for (var i = 0; i < vehicles.length; i++) {
+                var vehicle = vehicles[i];
+                
+                var marker = new google.maps.Marker({
+                    position: {
+                        lat: vehicle[1],
+                        lng: vehicle[2]
+                    },
+                    map: map,
+                    icon: image,
+                    shape: shape,
+                    title: vehicle[0],
+                    zIndex: vehicle[4],
+                    label: {
+                        text: vehicle[3],
+                        color: 'white'
+                    }
+
+                });
+                
+
+                var infowindow = new google.maps.InfoWindow();
+                var vehicle_username = vehicle[0];
+
+                google.maps.event.addListener(marker, 'click', (function(marker,content,infowindow) {
+                    return function() {
+                        infowindow.setContent(vehicle_username);
+                        infowindow.open(map, marker);
+                    };
+                })(marker, content, infowindow));
+
+
+
+
+
+            }
+
+
+        }
+
+    </script>
+            
+            <script async defer src="https://maps.googleapis.com/maps/api/js?callback=initMap">
+            
+          <!-- END CONTENT INNER -->
+        </div>
+        <!-- END PAGE CONTENT -->
+        <!-- START COPYRIGHT -->
+        <!-- START CONTAINER FLUID -->
+        <div class="container-fluid container-fixed-lg pull-bottom hidden-xs">
+          <div class="copyright no-border">
+            <p class="small no-margin pull-left"><span class="hint-text">Copyright &copy; 2018</span>
+              <span class="font-montserrat">Levoh</span>.
+              <span class="hint-text">Todos os direitos reservados.</span>
+                
+            </p>
+
+            
+            <div class="clearfix"></div>
+          </div>
+        </div>
+        <!-- END COPYRIGHT -->
+      </div>
+      <!-- END PAGE CONTENT WRAPPER -->
+    </div>
+    <!-- END PAGE CONTAINER -->
+
+    <!-- BEGIN VENDOR JS -->
+    <script src="assets/plugins/pace/pace.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/jquery/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/modernizr.custom.js" type="text/javascript"></script>
+    <script src="assets/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/tether/js/tether.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/jquery/jquery-easy.js" type="text/javascript"></script>
+    <script src="assets/plugins/jquery-unveil/jquery.unveil.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/jquery-ios-list/jquery.ioslist.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/jquery-actual/jquery.actual.min.js"></script>
+    <script src="assets/plugins/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/select2/js/select2.full.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/classie/classie.js"></script>
+    <script src="assets/plugins/switchery/js/switchery.min.js" type="text/javascript"></script>
+    <!-- END VENDOR JS -->
+    <!-- BEGIN CORE TEMPLATE JS -->
+    <script src="pages/js/pages.min.js"></script>
+    <!-- END CORE TEMPLATE JS -->
+    <!-- BEGIN PAGE LEVEL JS -->
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?v=3.exp?key=AIzaSyDnMZTSqmb4-LDEDoXW-NwyUdDYN9VMVf8" type="text/javascript"></script>
+    <script src="assets/js/google_map.js" type="text/javascript"></script> -->
+    <script src="assets/js/scripts.js" type="text/javascript"></script>
+    <!-- END PAGE LEVEL JS -->
+  </body>
+</html>
