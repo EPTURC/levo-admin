@@ -27,4 +27,7 @@
                 $(this).data('timer', wait);
             }
         });
+        
+        const user = window.localStorage.getItem('user');
+        $('.semi-bold').text(user.name || 'Anonimo')
     })
