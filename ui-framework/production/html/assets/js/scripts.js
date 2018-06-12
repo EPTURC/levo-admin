@@ -28,6 +28,11 @@
             }
         });
         
-        const user = window.localStorage.getItem('user');
-        $('.semi-bold').text(user.name || 'Anonimo')
+        if(window.sessionStorage.getItem('user')){
+            const user = JSON.stringify(window.sessionStorage.getItem('user'));
+            $('span#username').text(user.name || 'Anonimo')
+
+        } else{
+            $('span#username').text('Anonimo')
+        }
     })
