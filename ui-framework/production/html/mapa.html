@@ -121,11 +121,11 @@
         // Data for the markers consisting of a name, a LatLng and a zIndex for the
         // order in which these markers should display on top of each other.
         var vehicles = [
-            ['Nome do Usuário', -5.825151,-35.2131015, '4', 4],
-            ['Nome do Usuário', -5.833638,-35.211957, '5', 5],
-            ['Nome do Usuário', -5.830487,-35.2081454, '3', 3],
-            ['Nome do Usuário', -5.8383047,-35.2054156, '2', 2],
-            ['Nome do Usuário', -5.8327597,-35.2025073, '1', 1]
+            ['Nome do 4', -5.825151,-35.2131015, '4', 4],
+            ['Nome do 5', -5.833638,-35.211957, '5', 5],
+            ['Nome do 3', -5.830487,-35.2081454, '3', 3],
+            ['Nome do 2', -5.8383047,-35.2054156, '2', 2],
+            ['Nome do 1', -5.8327597,-35.2025073, '1', 1]
         ];
 
         function setMarkers(map) {
@@ -174,11 +174,10 @@
                 
 
                 var infowindow = new google.maps.InfoWindow();
-                var vehicle_username = vehicle[0];
-
+ 
                 google.maps.event.addListener(marker, 'click', (function(marker,content,infowindow) {
                     return function() {
-                        infowindow.setContent(vehicle_username);
+                        infowindow.setContent(marker.title);
                         infowindow.open(map, marker);
                     };
                 })(marker, content, infowindow));
