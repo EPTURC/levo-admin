@@ -62,13 +62,21 @@
             <!-- END Lock Screen User Info -->
           </div>
           <div class="col-md-6">
+              
             <!-- START Lock Screen Form -->
-            <form id="form-lock" role="form" action="mapa.html">
+            
               <div class="row">
                 <div class="col-md-12">
                   <!-- START Form Control -->
                     <h6 class="logged hint-text">Bem vindo, insira sua credenciais:</h6>
                   
+                    <!-- START Notification -->
+                    <div class="alert alert-danger" role="alert">
+                      <button class="close" data-dismiss="alert"></button>
+                      <strong>Não foi possível logar:</strong> há um erro nas suas credenciais.
+                    </div>
+                    <!-- END Notification -->
+                    
                       <div class="form-group form-group-default sm-m-t-30">
                             <label>Usuário:</label>
                             <input type="text" class="form-control" required>
@@ -85,7 +93,6 @@
                 </div>
               </div>
 
-            </form>
             <!-- END Lock Screen Form -->
           </div>
         </div>

@@ -4322,6 +4322,7 @@ Misc buttons
   border-radius: 3px;
   font-size: 13px;
   border-width: 0;
+  display: none;
   -webkit-transition: all 0.2s linear 0s;
   transition: all 0.2s linear 0s;
 }
