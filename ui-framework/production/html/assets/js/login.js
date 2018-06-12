@@ -17,10 +17,11 @@ $(document).ready(function() {
         //     data: ,
         //     success: (result) => {
         //         window.sessionStorage.setItem('user',JSON.stringify(result.data))
+        //         window.location.pathname = '/mapa.html'
         //     },
         //     error: (err) => {
         //         $('.alert').show()
-                
+        //         $('strong').text(err.message)
         //     }
         // })
     })
