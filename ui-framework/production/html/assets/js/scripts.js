@@ -2,6 +2,16 @@
         // Initializes search overlay plugin.
         // Replace onSearchSubmit() and onKeyEnter() with 
         // your logic to perform a search and display results
+
+        if(window.sessionStorage.getItem('user')){
+            const user = JSON.stringify(window.sessionStorage.getItem('user'));
+            $('span#username').text(user.name || 'Anonimo')
+
+        } else {
+            window.location.pathname = '/'
+            $('span#username').text('Anonimo')
+        }
+        
         $('[data-pages="search"]').search({
             searchField: '#overlay-search',
             closeButton: '.overlay-close',
@@ -28,13 +38,7 @@
             }
         });
         
-        if(window.sessionStorage.getItem('user')){
-            const user = JSON.stringify(window.sessionStorage.getItem('user'));
-            $('span#username').text(user.name || 'Anonimo')
-
-        } else{
-            $('span#username').text('Anonimo')
-        }
+        
 
         $('#logout').on('click',() => {
             window.sessionStorage.removeItem('user')
