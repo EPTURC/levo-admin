@@ -18,6 +18,8 @@ $(document).ready(function() {
         //     success: (result) => {
         //         window.sessionStorage.setItem('user',JSON.stringify(result.data))
         //         window.location.pathname = '/mapa.html'
+        //         data.username = ''
+        //         data.password = ''
         //     },
         //     error: (err) => {
         //         $('.alert').show()

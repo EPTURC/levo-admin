@@ -35,4 +35,9 @@
         } else{
             $('span#username').text('Anonimo')
         }
+
+        $('#logout').on('click',() => {
+            window.sessionStorage.removeItem('user')
+            window.location.pathname = '/'
+        })
     })
