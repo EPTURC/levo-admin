@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/EPTURC/levoh-admin/issues"
   },
-  "homepage": "https://github.com/EPTURC/levoh-admin#readme"
+  "homepage": "https://github.com/EPTURC/levoh-admin#readme",
+  "dependencies": {
+    "http-server": "^0.11.1"
+  }
 }
