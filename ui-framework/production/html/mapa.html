@@ -98,81 +98,7 @@
           <div class="map-container full-width full-height">
             <div id="google-map" class="full-width full-height"></div>
           </div>
-            
-            <script>
-        // The following example creates complex markers to indicate beaches near
-        // Sydney, NSW, Australia. Note that the anchor is set to (0,32) to correspond
-        // to the base of the flagpole.
-
-        function initMap() {
-            var map = new google.maps.Map(document.getElementById('google-map'), {
-                zoom: 15,
-                center: {
-                    lat: -5.8321357,
-                    lng: -35.2053167
-                },
-                disableDefaultUI: true
-            });
-            
-            $.ajax({
-              url:'https://epturc-levo.herokuapp.com/api/v1/vehicles',
-              type:'json',
-              method: 'GET',
-              success: (vehicles) =>{setMarkers(vehicles,map)},
-              error: (err) => console.log(err)
-            })
-            
-        }
-
-        function setMarkers(vehicles, map) {
-          
-            var image = {
-                url: 'https://i.imgur.com/i5fv2wL.png',
-                // This marker is 20 pixels wide by 32 pixels high.
-                size: new google.maps.Size(32, 32),
-                // The origin for this image is (0, 0).
-                origin: new google.maps.Point(0, 0),
-                // The anchor for this image is the base of the flagpole at (0, 32).
-                anchor: new google.maps.Point(0, 32),
-            };
-            // Shapes define the clickable region of the icon. The type defines an HTML
-            // <area> element 'poly' which traces out a polygon as a series of X,Y points.
-            // The final coordinate closes the poly by connecting to the first coordinate.
-            var shape = {
-                coords: [1, 1, 1, 20, 18, 20, 18, 1],
-                type: 'poly'
-            };
-            
-            for (let i = 0; i < vehicles.length; i++) {
-                var vehicle = vehicles[i];
-                var marker = new google.maps.Marker({
-                    position: {
-                        lat: parseFloat(vehicle.last_location.latitude),
-                        lng: parseFloat(vehicle.last_location.longitude)
-                    },
-                    map: map,
-                    icon: image,
-                    shape: shape,
-                    title: vehicle.company_id,
-                    zIndex: 2,
-                    label: {
-                        text: 'L',
-                        color: 'white'
-                    }
-
-                });
-            }
-                var infowindow = new google.maps.InfoWindow();
- 
-                google.maps.event.addListener(marker, 'click', (function(marker,content,infowindow) {
-                    return function() {
-                        infowindow.setContent(marker.title);
-                        infowindow.open(map, marker);
-                    };
-                })(marker,infowindow));
-        }
-
-    </script>    
+                
           <!-- END CONTENT INNER -->
         </div>
         <!-- END PAGE CONTENT -->
@@ -223,6 +149,93 @@
       <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnMZTSqmb4-LDEDoXW-NwyUdDYN9VMVf8&callback=initMap"
   type="text/javascript"></script>
       
-    <script src="assets/js/google_map.js" type="text/javascript"></script> 
+             <script>
+        // The following example creates complex markers to indicate beaches near
+        // Sydney, NSW, Australia. Note that the anchor is set to (0,32) to correspond
+        // to the base of the flagpole.
+                 
+        var zoomLevel = 15;
+
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('google-map'), {
+                zoom: 15,
+                center: {
+                    lat: -5.8321357,
+                    lng: -35.2053167
+                },
+                disableDefaultUI: true
+            });
+            
+            $.ajax({
+              url:'https://epturc-levo.herokuapp.com/api/v1/vehicles',
+              type:'json',
+              method: 'GET',
+              success: (vehicles) =>{setMarkers(vehicles,map)},
+              error: (err) => console.log(err)
+            })
+            
+            $(document).ready(function () {
+        $('#map-zoom-in').click(function () {
+            map.setZoom(++zoomLevel);
+        });
+        $('#map-zoom-out').click(function () {
+            map.setZoom(--zoomLevel);
+        });
+    });
+            
+            
+            
+        }
+
+        function setMarkers(vehicles, map) {
+          
+            var image = {
+                url: 'https://i.imgur.com/i5fv2wL.png',
+                // This marker is 20 pixels wide by 32 pixels high.
+                size: new google.maps.Size(32, 32),
+                // The origin for this image is (0, 0).
+                origin: new google.maps.Point(0, 0),
+                // The anchor for this image is the base of the flagpole at (0, 32).
+                anchor: new google.maps.Point(0, 32),
+            };
+            // Shapes define the clickable region of the icon. The type defines an HTML
+            // <area> element 'poly' which traces out a polygon as a series of X,Y points.
+            // The final coordinate closes the poly by connecting to the first coordinate.
+            var shape = {
+                coords: [1, 1, 1, 20, 18, 20, 18, 1],
+                type: 'poly'
+            };
+            
+            for (let i = 0; i < vehicles.length; i++) {
+                var vehicle = vehicles[i];
+                var marker = new google.maps.Marker({
+                    position: {
+                        lat: parseFloat(vehicle.last_location.latitude),
+                        lng: parseFloat(vehicle.last_location.longitude)
+                    },
+                    map: map,
+                    icon: image,
+                    shape: shape,
+                    title: vehicle.company_id,
+                    zIndex: 2,
+                    label: {
+                        text: vehicle.id,
+                        color: 'white'
+                    }
+
+                });
+            }
+                var infowindow = new google.maps.InfoWindow();
+ 
+                google.maps.event.addListener(marker, 'click', (function(marker,content,infowindow) {
+                    return function() {
+                        infowindow.setContent(vehicle.id);
+                        infowindow.open(map, marker);
+                    };
+                })(marker,infowindow));
+        }
+                
+
+    </script> 
   </body>
 </html>
