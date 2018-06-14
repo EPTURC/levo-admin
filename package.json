@@ -1,0 +1,20 @@
+{
+  "name": "levoh-admin",
+  "version": "1.0.0",
+  "description": "The web UI for Levo admin dashboard. It is based on a UI frame work that is built on top of Bootstrap 4, its hand crafted components look great on all devices and works super fast even on mobile.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EPTURC/levoh-admin.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EPTURC/levoh-admin/issues"
+  },
+  "homepage": "https://github.com/EPTURC/levoh-admin#readme"
+}
