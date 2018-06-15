@@ -10,6 +10,7 @@ $(document).ready(function() {
         data.password = password
         
         if(data.username == '' || data.password == '') return
+        window.location.pathname = '/mapa.html'
         // $.ajax({
         //     method: 'POST',
         //     type:'json',

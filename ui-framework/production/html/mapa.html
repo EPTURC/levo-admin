@@ -113,28 +113,19 @@
                 },
                 disableDefaultUI: true
             });
-
-            setMarkers(map);
+            
+            $.ajax({
+              url:'http://epturc-levo.herokuapp.com/api/v1/vehicles',
+              type:'json',
+              method: 'GET',
+              success: (vehicles) =>{setMarkers(vehicles,map)},
+              error: (err) => console.log(err)
+            })
+            
         }
 
-        // Data for the markers consisting of a name, a LatLng and a zIndex for the
-        // order in which these markers should display on top of each other.
-        var vehicles = [
-            ['Nome do 4', -5.825151,-35.2131015, '4', 4],
-            ['Nome do 5', -5.833638,-35.211957, '5', 5],
-            ['Nome do 3', -5.830487,-35.2081454, '3', 3],
-            ['Nome do 2', -5.8383047,-35.2054156, '2', 2],
-            ['Nome do 1', -5.8327597,-35.2025073, '1', 1]
-        ];
-
-        function setMarkers(map) {
-            // Adds markers to the map.
-
-            // Marker sizes are expressed as a Size of X,Y where the origin of the image
-            // (0,0) is located in the top left of the image.
-
-            // Origins, anchor positions and coordinates of the marker increase in the X
-            // direction to the right and in the Y direction down.
+        function setMarkers(vehicles, map) {
+          
             var image = {
                 url: 'https://i.imgur.com/i5fv2wL.png',
                 // This marker is 20 pixels wide by 32 pixels high.
@@ -151,27 +142,26 @@
                 coords: [1, 1, 1, 20, 18, 20, 18, 1],
                 type: 'poly'
             };
-            for (var i = 0; i < vehicles.length; i++) {
+            
+            for (let i = 0; i < vehicles.length; i++) {
                 var vehicle = vehicles[i];
-                
                 var marker = new google.maps.Marker({
                     position: {
-                        lat: vehicle[1],
-                        lng: vehicle[2]
+                        lat: parseFloat(vehicle.last_location.latitude),
+                        lng: parseFloat(vehicle.last_location.longitude)
                     },
                     map: map,
                     icon: image,
                     shape: shape,
-                    title: vehicle[0],
-                    zIndex: vehicle[4],
+                    title: vehicle.company_id,
+                    zIndex: 2,
                     label: {
-                        text: vehicle[3],
+                        text: 'L',
                         color: 'white'
                     }
 
                 });
-                
-
+            }
                 var infowindow = new google.maps.InfoWindow();
  
                 google.maps.event.addListener(marker, 'click', (function(marker,content,infowindow) {
@@ -180,20 +170,9 @@
                         infowindow.open(map, marker);
                     };
                 })(marker, content, infowindow));
-
-
-
-
-
-            }
-
-
         }
 
-    </script>
-            
-            <script async defer src="https://maps.googleapis.com/maps/api/js?callback=initMap">
-            
+    </script>    
           <!-- END CONTENT INNER -->
         </div>
         <!-- END PAGE CONTENT -->
@@ -241,5 +220,6 @@
     <script src="assets/js/google_map.js" type="text/javascript"></script> -->
     <script src="assets/js/scripts.js" type="text/javascript"></script>
     <!-- END PAGE LEVEL JS -->
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp?key=AIzaSyDnMZTSqmb4-LDEDoXW-NwyUdDYN9VMVf8&callback=initMap" type="text/javascript"></script>
   </body>
 </html>
