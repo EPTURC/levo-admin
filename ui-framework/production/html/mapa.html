@@ -50,24 +50,28 @@
             </a>
                     <span class="bg-success icon-thumbnail"><i class="pg-map"></i></span>
                 </li>
-                <li class="m-t-20">
+                <!--<li class="m-t-20">
                     <a href="rotas.html" class="detailed">
                       <span class="title">Rotas</span>
                       <span class="details">Cadastro</span>
                     </a>
                     <span class="icon-thumbnail"><i class="pg-bag"></i></span>
-                </li>
+                </li> -->
                 <li class="m-t-30 ">
                   <a href="motorista.html" class="detailed">
                     <span class="title">Motorista</span>
-                    <span class="details">Cadastro de motorista</span>
-                  </a>
+                    <span class="details">Cadastro de Motorista</span>
+                      </a>
+                      <span class="icon-thumbnail"><i class="fa fa-user"></i></span>
+                  
                 </li>
                 <li class="m-t-30 ">
                   <a href="veiculo.html" class="detailed">
                     <span class="title">Veículo</span>
                     <span class="details">Cadastro de Veículo</span>
-                  </a>
+                      </a>
+                      <span class="icon-thumbnail"><i class="fa fa-truck"></i></span>
+                  
                 </li>
             </ul>
         </ul>
@@ -170,12 +174,21 @@
       <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnMZTSqmb4-LDEDoXW-NwyUdDYN9VMVf8&callback=initMap"
   type="text/javascript"></script>
       
+      
+      <script type="text/javascript">
+        setTimeout(function(){
+            location = ''
+        },30000)
+      </script>
+      
              <script>
         // The following example creates complex markers to indicate beaches near
         // Sydney, NSW, Australia. Note that the anchor is set to (0,32) to correspond
         // to the base of the flagpole.
                  
         var zoomLevel = 15;
+                 
+
 
         function initMap() {
             var map = new google.maps.Map(document.getElementById('google-map'), {
@@ -209,6 +222,21 @@
         }
 
         function setMarkers(vehicles, map) {
+            
+            
+            var ativo = {
+                    url: 'https://i.imgur.com/i5fv2wL.png',
+                    size: new google.maps.Size(32, 32),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(0, 32),
+                };
+            
+                var inativo = {
+                    url: 'https://i.imgur.com/g5K4COo.png',
+                    size: new google.maps.Size(32, 32),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(0, 32),
+                };
           
             var image = {
                 url: 'https://i.imgur.com/i5fv2wL.png',
@@ -219,9 +247,7 @@
                 // The anchor for this image is the base of the flagpole at (0, 32).
                 anchor: new google.maps.Point(0, 32),
             };
-            // Shapes define the clickable region of the icon. The type defines an HTML
-            // <area> element 'poly' which traces out a polygon as a series of X,Y points.
-            // The final coordinate closes the poly by connecting to the first coordinate.
+            
             var shape = {
                 coords: [1, 1, 1, 20, 18, 20, 18, 1],
                 type: 'poly'
@@ -235,7 +261,7 @@
                         lng: parseFloat(vehicle.last_location.longitude)
                     },
                     map: map,
-                    icon: image,
+                    icon: vehicle.status,
                     shape: shape,
                     title: vehicle.company_id,
                     zIndex: 2,
