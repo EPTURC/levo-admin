@@ -58,9 +58,15 @@
                     <span class="icon-thumbnail"><i class="pg-bag"></i></span>
                 </li>
                 <li class="m-t-30 ">
-                  <a href="vinculo.html" class="detailed">
-                    <span class="title">Vinculo</span>
-                    <span class="details">Vinculo de rota/motorista</span>
+                  <a href="motorista.html" class="detailed">
+                    <span class="title">Motorista</span>
+                    <span class="details">Cadastro de motorista</span>
+                  </a>
+                </li>
+                <li class="m-t-30 ">
+                  <a href="veiculo.html" class="detailed">
+                    <span class="title">Veículo</span>
+                    <span class="details">Cadastro de Veículo</span>
                   </a>
                 </li>
             </ul>
@@ -122,7 +128,7 @@
         <div class="container-fluid container-fixed-lg pull-bottom hidden-xs">
           <div class="copyright no-border">
             <p class="small no-margin pull-left"><span class="hint-text">Copyright &copy; 2018</span>
-              <span class="font-montserrat">Levo</span>.
+              <span class="font-montserrat">Levoh</span>.
               <span class="hint-text">Todos os direitos reservados.</span>
                 
             </p>
@@ -164,14 +170,10 @@
       <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnMZTSqmb4-LDEDoXW-NwyUdDYN9VMVf8&callback=initMap"
   type="text/javascript"></script>
       
-      
-      <script type="text/javascript">
-        setTimeout(function(){
-            location = ''
-        },30000)
-      </script>
-      
              <script>
+        // The following example creates complex markers to indicate beaches near
+        // Sydney, NSW, Australia. Note that the anchor is set to (0,32) to correspond
+        // to the base of the flagpole.
                  
         var zoomLevel = 15;
 
@@ -208,30 +210,18 @@
 
         function setMarkers(vehicles, map) {
           
-           
-                var moving = {
-                    url: 'https://i.imgur.com/i5fv2wL.png',
-                    size: new google.maps.Size(32, 32),
-                    origin: new google.maps.Point(0, 0),
-                    anchor: new google.maps.Point(0, 32),
-                };
-            
-                var stopped = {
-                    url: 'https://i.imgur.com/nWWGM0v.png',
-                    size: new google.maps.Size(32, 32),
-                    origin: new google.maps.Point(0, 0),
-                    anchor: new google.maps.Point(0, 32),
-                };
-            
-                var offline = {
-                    url: 'https://i.imgur.com/g5K4COo.png',
-                    size: new google.maps.Size(32, 32),
-                    origin: new google.maps.Point(0, 0),
-                    anchor: new google.maps.Point(0, 32),
-                };
-            
-            
-            
+            var image = {
+                url: 'https://i.imgur.com/i5fv2wL.png',
+                // This marker is 20 pixels wide by 32 pixels high.
+                size: new google.maps.Size(32, 32),
+                // The origin for this image is (0, 0).
+                origin: new google.maps.Point(0, 0),
+                // The anchor for this image is the base of the flagpole at (0, 32).
+                anchor: new google.maps.Point(0, 32),
+            };
+            // Shapes define the clickable region of the icon. The type defines an HTML
+            // <area> element 'poly' which traces out a polygon as a series of X,Y points.
+            // The final coordinate closes the poly by connecting to the first coordinate.
             var shape = {
                 coords: [1, 1, 1, 20, 18, 20, 18, 1],
                 type: 'poly'
@@ -245,7 +235,7 @@
                         lng: parseFloat(vehicle.last_location.longitude)
                     },
                     map: map,
-                    icon: vehicle.status,
+                    icon: image,
                     shape: shape,
                     title: vehicle.company_id,
                     zIndex: 2,
