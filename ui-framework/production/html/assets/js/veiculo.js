@@ -1,14 +1,22 @@
 let baseUrl = "https://epturc-levo.herokuapp.com/api/v1/"
 $("#form-cadastro-veiculo").submit(function( event ) {
    let vehiclesUrl = baseUrl + "vehicles"
-
+   
    let licensePlate = $("#license-plate").val().toString()
    let companyId = $("#company-id").val().toString()
    let colorVehicle = $("#color-vehicle").val().toString()
    let modelVehicle = $("#model-vehicle").val().toString()
 
+   let vehicle = {
+       company_id : companyId,
+       license_plate : licensePlate,
+       model: modelVehicle,
+       color: colorVehicle
+   }
+
+   
    event.preventDefault();
-   $.post( vehiclesUrl, { vehicle: { company_id : companyId,license_plate : licensePlate, model: modelVehicle, color: colorVehicle} })
+   $.post( vehiclesUrl, {vehicle} )
    .done(function( res ) {
       $("#text-alert").html("Veículo cadastrado com sucesso!");
       $("#alert-form-driver").toggleClass("alert-success").show();
@@ -37,6 +45,10 @@ $("#form-cadastro-veiculo").submit(function( event ) {
    $("#form-cadastro-veiculo")[0].reset();
 })
 
+$('form-edit-veiculo').submit(function( event ) {
+    console.log("HUSAFI ")
+    event.preventDefault()
+})
 
 $(document).ready(() => {
     setMasks();
@@ -65,13 +77,21 @@ $(document).ready(() => {
     });
 
     $("#editVehicle").on( "click", function() { 
-
+        let vehicleToSend = {
+            license_plate: $('#license-plate-edit').val(),
+            company_id: $('#company-id-edit').val(),
+            model: $('#model-vehicle-edit').val(),
+            color: $("#color-vehicle-edit").val()
+        }
+        
         $.ajax({
             method:"PUT",
-            url:baseUrl+`/${paserInt($("#id-edit").val())}`,
+            url:baseUrl+`vehicles/${parseInt($("#id-edit").val())}`,
+            data: {vehicle:{vehicleToSend} },
             success: (result) => {
                 $("#text-alert-edit").html("Veículo editado com sucesso!");
                 $("#alert-form-driver-edit").toggleClass("alert-success").show();
+                setTimeout(() => {window.location.reload()},2000 )
             },
             error: (err) =>{
                 $("#text-alert").html("Ocorreu um erro na edição!");
@@ -93,13 +113,14 @@ $(document).ready(() => {
         
         $.ajax({
             method:"DELETE",
-            url:baseUrl+`/${paserInt($("#id-edit").val())}`,
+            url:baseUrl+`vehicles/${parseInt($("#id-edit").val())}`,
             success: (result) => {
-                $("#text-alert-edit").html("Veículo editado com sucesso!");
+                $("#text-alert-edit").html("Veículo deletado com sucesso!");
                 $("#alert-form-driver-edit").toggleClass("alert-success").show();
+                setTimeout(() => {window.location.reload()},2000 )
             },
-            error: (err) =>{
-                $("#text-alert").html("Ocorreu um erro na edição!");
+            error: (err) => {
+                $("#text-alert").html("Ocorreu um erro na remoção!");
                 $("#alert-form-driver-edit").toggleClass("alert-danger").show();
 
             }
