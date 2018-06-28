@@ -3,7 +3,7 @@
    <head>
       <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
       <meta charset="utf-8" />
-      <title>Levo - Cadastro de Rodas</title>
+      <title>Levo - Cadastro de Veículo</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" />
       <link rel="apple-touch-icon" href="pages/ico/60.png">
       <link rel="apple-touch-icon" sizes="76x76" href="pages/ico/76.png">
@@ -28,46 +28,73 @@
    <body class="fixed-header">
       <!-- BEGIN SIDEBPANEL-->
       <nav class="page-sidebar" data-pages="sidebar">
-         <!-- BEGIN SIDEBAR MENU HEADER-->
-         <div class="sidebar-header">
+
+        <!-- BEGIN SIDEBAR MENU HEADER-->
+        <div class="sidebar-header">
             <img src="assets/img/logo_white.png" alt="logo" class="brand" data-src="assets/img/logo_white.png" data-src-retina="assets/img/logo_white_2x.png" width="78" height="22">
             <div class="sidebar-header-controls">
-               <button type="button" class="btn btn-link hidden-md-down" data-toggle-pin="sidebar"><i class="fa fs-12"></i>
-               </button>
+                <button type="button" class="btn btn-link hidden-md-down" data-toggle-pin="sidebar"><i class="fa fs-12"></i>
+          </button>
             </div>
-         </div>
-         <!-- END SIDEBAR MENU HEADER-->
-         <!-- START SIDEBAR MENU -->
-         <div class="sidebar-menu">
+        </div>
+        <!-- END SIDEBAR MENU HEADER-->
+        <!-- START SIDEBAR MENU -->
+        <div class="sidebar-menu">
             <!-- BEGIN SIDEBAR MENU ITEMS-->
             <ul class="menu-items">
-               <ul class="menu-items">
-                  <li class="m-t-20">
-                     <a href="mapa.html" class="detailed">
-                     <span class="title">Mapa</span>
-                     <span class="details">Rastreamento de Frota</span>
-                     </a>
-                     <span class="bg-success icon-thumbnail"><i class="pg-map"></i></span>
-                  </li>
-                  <li class="m-t-20">
-                     <a href="rotas.html" class="detailed">
-                     <span class="title">Rotas</span>
-                     <span class="details">Cadastro</span>
-                     </a>
-                     <span class="icon-thumbnail"><i class="pg-bag"></i></span>
-                  </li>
-                  <li class="m-t-30 ">
-                     <a href="vinculo.html" class="detailed">
-                     <span class="title">Vinculo</span>
-                     <span class="details">Vinculo de rota/motorista</span>
-                     </a>
-                  </li>
-               </ul>
+                <ul class="menu-items">
+                    <li class="m-t-20">
+                        <a href="mapa.html" class="detailed">
+              <span class="title">Mapa</span>
+              <span class="details">Rastreamento de Frota</span>
+            </a>
+                        <span class="bg-success icon-thumbnail"><i class="pg-map"></i></span>
+                    </li>
+                    <!--<li class="m-t-20">
+                    <a href="rotas.html" class="detailed">
+                      <span class="title">Rotas</span>
+                      <span class="details">Cadastro</span>
+                    </a>
+                    <span class="icon-thumbnail"><i class="pg-bag"></i></span>
+                </li> -->
+                    <li class="m-t-30 ">
+                        <a href="motorista.html" class="detailed">
+                    <span class="title">Motorista</span>
+                    <span class="details">Cadastro de Motorista</span>
+                      </a>
+                        <span class="icon-thumbnail"><i class="fa fa-user"></i></span>
+
+                    </li>
+                    <li class="m-t-30 ">
+                        <a href="veiculo.html" class="detailed">
+                    <span class="title">Veículo</span>
+                    <span class="details">Cadastro de Veículo</span>
+                      </a>
+                        <span class="icon-thumbnail"><i class="fa fa-truck"></i></span>
+
+                    </li>
+                    <li class="m-t-30 ">
+                        <a href="itinerario.html" class="detailed">
+                    <span class="title">Itinerario</span>
+                    <span class="details">Cadastro de Itinerario</span>
+                      </a>
+                        <span class="icon-thumbnail"><i class="fa fa-truck"></i></span>
+
+                    </li>
+                    <li class="m-t-30 ">
+                        <a href="vinculo.html" class="detailed">
+                    <span class="title">Vinculo</span>
+                    <span class="details">Vinculo</span>
+                      </a>
+                        <span class="icon-thumbnail"><i class="fa fa-truck"></i></span>
+
+                    </li>
+                </ul>
             </ul>
             <div class="clearfix"></div>
-         </div>
-         <!-- END SIDEBAR MENU -->
-      </nav>
+        </div>
+        <!-- END SIDEBAR MENU -->
+    </nav>
       <!-- END SIDEBAR -->
       <!-- END SIDEBPANEL-->
       <!-- START PAGE-CONTAINER -->
@@ -98,49 +125,46 @@
                <div class=" container-fluid   container-fixed-lg bg-white">
                   <ol class="breadcrumb">
                      <li class="breadcrumb-item"><a href="#">Home</a></li>
-                     <li class="breadcrumb-item active">VINCULO</li>
+                     <li class="breadcrumb-item active">Vinculo</li>
                   </ol>
                   <div class="row">
                      <div class="col-md-5">
                         <!-- START card -->
                         <div class="card card-transparent">
                            <div class="card-header ">
-                              <div class="card-title">INSIRA UMA NOVA ROTA
+                              <div class="card-title">Vinculo de motorista, veiculo e intinerario
                               </div>
                            </div>
                            <div class="card-block">
-                              <h3>Vinculo de rota/motorista</h3>
-                              <p>Para realizar o vinculo é necessario informar o motorista, a rota e o veiculo.</p>
+                              <h3>Itinerários ativos</h3>
                            </div>
                         </div>
+                        <
                         <!-- END card -->
                      </div>
                      <div class="col-md-7">
-                        <div class="card card-default">
-                           <div class="card-header ">
-                              <div class="card-title">
-                                 Vínculo
-                              </div>
-                           </div>
+                        <!-- START card -->
+                        <div class="card card-transparent">
                            <div class="card-block">
-                              <form class="" role="form">
-                                    <h5>Motorista</h5>
-                                    <div class="form-group">
-                                        <input class="typeahead form-control sample-typehead" type="text" placeholder="Motorista">
+                              <form id="form-cadastro-veiculo" role="form" method="post" autocomplete="off">
+                                 <div class="alert" role="alert" id="alert-form-driver">
+                                    <button class="close" data-dismiss="alert"></button>
+                                    <span id="text-alert"></span>
+                                 </div>
+                                 <p>Informações sobre o vínculo</p>
+                                 <div class="form-group-attached">
+                                    <div class="form-group form-group-default required">
+                                       <label>identificador do vínculo</label>
+                                       <input type="text" class="form-control" name="company-id" id="company-id" required>
                                     </div>
-                                 <h5>Veículo</h5>
-                                    <div class="form-group">
-                                        <input class="typeahead form-control sample-typehead" type="text" placeholder="Veículo">
-                                    </div>
-                                 <h5>Rota</h5>
-                                    <div class="form-group">
-                                        <input class="typeahead form-control sample-typehead" type="text" placeholder="Rota">
-                                    </div>
+                                 </div>
+                                 <br>
+                                 <button class="btn btn-success" type="submit">Cadastrar Vinculo</button>
+                                 <button class="btn btn-default"><i class="pg-close"></i> Limpar</button>
                               </form>
-                              <br>
-                              <button class="btn btn-success" type="submit">Cadastrar Vinculo</button>
                            </div>
                         </div>
+                        <!-- END card -->
                      </div>
                   </div>
                </div>
@@ -184,5 +208,9 @@
       <!-- BEGIN PAGE LEVEL JS -->
       <!-- <script src="https://maps.googleapis.com/maps/api/js?v=3.exp?key=AIzaSyDnMZTSqmb4-LDEDoXW-NwyUdDYN9VMVf8" type="text/javascript"></script>-->
       <script src="assets/js/scripts.js" type="text/javascript"></script>
+      <!-- END PAGE LEVEL JS -->
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnMZTSqmb4-LDEDoXW-NwyUdDYN9VMVf8&sensor=false&libraries=places" type="text/javascript"></script>
+      <script src="assets/js/locationpicker.jquery.min.js" type="text/javascript"></script>
+      <script src="assets/js/vinculo.js" type="text/javascript"></script>
    </body>
 </html>

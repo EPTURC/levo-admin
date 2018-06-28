@@ -3,8 +3,11 @@ $("#form-cadastro-motorista").submit(function( event ) {
    let userUrl = baseUrl + "users"
    let driveUrl = baseUrl + "drivers"
    let name = $("#nome-motorista").val()
+   let cpf = $("#cpf-motorista").val()
+   let rg = $("#rg-motorista").val()
+
    event.preventDefault();
-   $.post( userUrl, { user: { name: name } })
+   $.post( userUrl, { user: { name: name, cpf:cpf, rg:rg} })
    .done(function( dataUser ) {
       $.post( driveUrl, { driver: { user_id: dataUser.id } })
       .done(function( dataDriver ) {
