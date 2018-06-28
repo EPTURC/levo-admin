@@ -245,12 +245,16 @@
                  longitude: -35.2053761
              },
              radius: 0,
+             addressFormat: 'address',
              inputBinding: {
                  latitudeInput: $('#ponto-coleta-lat'),
                  longitudeInput: $('#ponto-coleta-lon'),
                  radiusInput: $('#ponto-coleta-radius'),
                  locationNameInput: $('#ponto-coleta-input')
-             }
+             },
+                enableAutocomplete: true,
+                onchanged: function (currentLocation, radius, isMarkerDropped) {
+                }
          });
          
          $('#ponto-entrega-mapa').locationpicker({
@@ -259,12 +263,16 @@
                  longitude: -35.2053761
              },
              radius: 0,
+             addressFormat: 'address',
              inputBinding: {
                  latitudeInput: $('#ponto-entrega-lat'),
                  longitudeInput: $('#ponto-entrega-lon'),
                  radiusInput: $('#ponto-entrega-radius'),
                  locationNameInput: $('#ponto-entrega-input')
-             }
+             },
+                enableAutocomplete: true,
+                onchanged: function (currentLocation, radius, isMarkerDropped) {
+                }
          });
          
       </script>
