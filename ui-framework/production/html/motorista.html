@@ -48,14 +48,14 @@
               <span class="title">Mapa</span>
               <span class="details">Rastreamento de Frota</span>
             </a>
-                        <span class="bg-success icon-thumbnail"><i class="pg-map"></i></span>
+                        <span class="icon-thumbnail"><i class="pg-map"></i></span>
                     </li>
                     <li class="m-t-30 ">
                         <a href="motorista.html" class="detailed">
-                    <span class="title">Motorista</span>
-                    <span class="details">Cadastro de Motorista</span>
+                    <span class="title">Motoristas</span>
+                    <span class="details">Lista e Cadastro</span>
                       </a>
-                        <span class="icon-thumbnail"><i class="fa fa-user"></i></span>
+                        <span class="bg-success icon-thumbnail"><i class="fa fa-user"></i></span>
 
                     </li>
                     <li class="m-t-30 ">
@@ -113,33 +113,52 @@
          <!-- END HEADER -->
          <!-- START PAGE CONTENT WRAPPER -->
          <div class="page-content-wrapper">
-            <!-- START PAGE CONTENT -->
-            <div class="content">
-               <div class=" container-fluid   container-fixed-lg bg-white">
-                  <ol class="breadcrumb">
-                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                     <li class="breadcrumb-item active">Motorista</li>
-                  </ol>
-                  <div class="row">
-                     <div class="col-md-5">
-                        <!-- START card -->
-                        <div class="card card-transparent">
-                           <div class="card-header ">
-                              <div class="card-title">INSIRA UM NOVO MOTORISTA
-                              </div>
-                           </div>
-                           <div class="card-block">
-                              <h3>Cadastro de novo motorista</h3>
-                              <p>Para cadastrar um novo motorista, insira o nome dele.</p>
-                           </div>
+             
+             <div class="social-wrapper">
+                    <div class="social " data-pages="social">
+                        <div class="jumbotron" data-pages="parallax" data-social="cover">
+                            <div class="cover-photo">
+                                <img alt="Motoristas" src="assets/img/cover/motorista.jpg" />
+                            </div>
+                            <div class=" container-fluid   container-fixed-lg sm-p-l-0 sm-p-r-0">
+                                <div class="inner">
+                                    <div class="pull-bottom bottom-left m-b-40 sm-p-l-15">
+                                        <h5 class="text-white no-margin">&nbsp;Gestão de</h5>
+                                        <h1 class="text-white no-margin"><span class="semi-bold">Motoristas</span></h1>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <!-- END card -->
-                     </div>
-                     <div class="col-md-7">
-                        <!-- START card -->
-                        <div class="card card-transparent">
-                           <div class="card-block">
-                              <form id="form-cadastro-motorista" role="form" method="post" autocomplete="off">
+                    </div>
+                </div>
+             
+                             <div class=" container-fluid  container-fixed-lg">
+                    <!-- START card -->
+                    <div class="card card-transparent">
+                        <div class="card-header ">
+                            <div class="card-title">Relação de Motoristas
+                            </div>
+                            <div class="pull-right">
+                                <div class="col-xs-12">
+                                    <button id="show-modal" class="btn btn-primary btn-cons" data-toggle="modal" data-target="#addDriver"><i class="fa fa-plus"></i> Novo motorista
+                    </button>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <!-- MODAL FORM ADD DRIVER  -->
+                        <div class="modal fade stick-up" id="addDriver" tabindex="-1" role="dialog" aria-labelledby="addDriver" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header clearfix text-left">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                <i class="pg-close fs-14"></i>
+                </button>
+                                        <h5>Cadastrar <span class="semi-bold">Motorista</span></h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="form-cadastro-motorista" role="form" method="post" autocomplete="off">
                                  <div class="alert" role="alert" id="alert-form-driver">
                                     <button class="close" data-dismiss="alert"></button>
                                     <span id="text-alert"></span>
@@ -169,13 +188,162 @@
                                  <button class="btn btn-success" type="submit">Cadastrar Motorista</button>
                                  <button class="btn btn-default"><i class="pg-close"></i> Limpar</button>
                               </form>
-                           </div>
+
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
                         </div>
-                        <!-- END card -->
-                     </div>
-                  </div>
-               </div>
-            </div>
+                        <!-- END MODAL FORM ADD DRIVER   -->
+
+                        <!-- START TABLE OF DRIVERS -->
+                        <div class="card-block">
+                            <table class="table table-hover demo-table-dynamic table-responsive-block" id="tableWithDynamicRows">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>CPF</th>
+                                        <th>RG</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="v-align-middle">
+                                            <p>José Ribeiro</p>
+                                        </td>
+                                        <td class="v-align-middle">
+                                            <p>105.487.788-18</p>
+                                        </td>
+                                        <td class="v-align-middle">
+                                            <p>254589</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="v-align-middle">
+                                            <p>Cláudio Queiroz</p>
+                                        </td>
+                                        <td class="v-align-middle">
+                                            <p>105.487.788-18</p>
+                                        </td>
+                                        <td class="v-align-middle">
+                                            <p>254589</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="v-align-middle">
+                                            <p>Maria Cristina</p>
+                                        </td>
+                                        <td class="v-align-middle">
+                                            <p>105.487.788-18</p>
+                                        </td>
+                                        <td class="v-align-middle">
+                                            <p>254589</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="v-align-middle">
+                                            <p>Antônio Barros</p>
+                                        </td>
+                                        <td class="v-align-middle">
+                                            <p>105.487.788-18</p>
+                                        </td>
+                                        <td class="v-align-middle">
+                                            <p>254589</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="v-align-middle">
+                                            <p>Cristóvão Lopes</p>
+                                        </td>
+                                        <td class="v-align-middle">
+                                            <p>105.487.788-18</p>
+                                        </td>
+                                        <td class="v-align-middle">
+                                            <p>254589</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="v-align-middle">
+                                            <p>José Ribeiro</p>
+                                        </td>
+                                        <td class="v-align-middle">
+                                            <p>105.487.788-18</p>
+                                        </td>
+                                        <td class="v-align-middle">
+                                            <p>254589</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="v-align-middle">
+                                            <p>Cláudio Queiroz</p>
+                                        </td>
+                                        <td class="v-align-middle">
+                                            <p>105.487.788-18</p>
+                                        </td>
+                                        <td class="v-align-middle">
+                                            <p>254589</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="v-align-middle">
+                                            <p>Maria Cristina</p>
+                                        </td>
+                                        <td class="v-align-middle">
+                                            <p>105.487.788-18</p>
+                                        </td>
+                                        <td class="v-align-middle">
+                                            <p>254589</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="v-align-middle">
+                                            <p>Antônio Barros</p>
+                                        </td>
+                                        <td class="v-align-middle">
+                                            <p>105.487.788-18</p>
+                                        </td>
+                                        <td class="v-align-middle">
+                                            <p>254589</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="v-align-middle">
+                                            <p>Cristóvão Lopes</p>
+                                        </td>
+                                        <td class="v-align-middle">
+                                            <p>105.487.788-18</p>
+                                        </td>
+                                        <td class="v-align-middle">
+                                            <p>254589</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <!-- END TABLE OF DRIVERS -->
+
+
+                        <div class="card-header ">
+
+                            <div class="pull-right">
+                                <div class="col-xs-12">
+                                    <button id="show-modal" class="btn btn-primary btn-cons" data-toggle="modal" data-target="#addDriver"><i class="fa fa-plus"></i> Novo motorista
+                    </button>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+
+
+
+
+                    </div>
+                    <!-- END card -->
+                </div>
+             
+        
             <!-- END PAGE CONTENT -->
             <!-- START COPYRIGHT -->
             <!-- START CONTAINER FLUID -->
