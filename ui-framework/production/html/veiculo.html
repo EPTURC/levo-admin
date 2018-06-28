@@ -153,8 +153,8 @@
                                 <div class="modal-content">
                                     <div class="modal-header clearfix text-left">
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                <i class="pg-close fs-14"></i>
-                </button>
+                                                    <i class="pg-close fs-14"></i>
+                                        </button>
                                         <h5>Cadastrar <span class="semi-bold">Veículo</span></h5>
                                     </div>
                                     <div class="modal-body">
@@ -166,15 +166,30 @@
                                  <p>Informações sobre o veículo</p>
                                  <div class="form-group-attached">
                                     <div class="form-group form-group-default required">
-                                       <label>Número do veículo</label>
-                                       <input type="text" class="form-control" name="company-id" id="company-id" required>
+                                       <label>Placa do veículo</label>
+                                       <input type="text" class="form-control" name="license-plate" id="license-plate" required>
                                     </div>
                                  </div>
                                  <br>
+                                 
                                  <div class="form-group-attached">
                                         <div class="form-group form-group-default required">
-                                           <label>Identificador do veículo</label>
+                                           <label>Modelo do veículo</label>
+                                           <input type="text" class="form-control" name="model-vehicle" id="model-vehicle" required>
+                                        </div>
+                                </div>
+                                <br>
+                                 <div class="form-group-attached">
+                                        <div class="form-group form-group-default required">
+                                           <label>Companhia do veículo</label>
                                            <input type="text" class="form-control" name="company-id" id="company-id" required>
+                                        </div>
+                                     </div>
+                                     <br>
+                                     <div class="form-group-attached">
+                                        <div class="form-group form-group-default required">
+                                           <label>Cor do veículo</label>
+                                           <input type="text" class="form-control" name="color-vehicle" id="color-vehicle" required>
                                         </div>
                                      </div>
                                      <br>
@@ -195,67 +210,13 @@
                             <table class="table table-hover demo-table-dynamic table-responsive-block" id="tableWithDynamicRows">
                                 <thead>
                                     <tr>
-                                        <th>Número</th>
-                                        <th>Identificador</th>
+                                        <th>Placa</th>
+                                        <th>Modelo</th>
+                                        <th>Companhia</th>
+                                        <th>Cor</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="v-align-middle">
-                                            <p>05</p>
-                                        </td>
-                                        <td class="v-align-middle">
-                                            <p>CITROEN JUMPY</p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="v-align-middle">
-                                            <p>05</p>
-                                        </td>
-                                        <td class="v-align-middle">
-                                            <p>CITROEN JUMPY</p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="v-align-middle">
-                                            <p>05</p>
-                                        </td>
-                                        <td class="v-align-middle">
-                                            <p>CITROEN JUMPY</p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="v-align-middle">
-                                            <p>05</p>
-                                        </td>
-                                        <td class="v-align-middle">
-                                            <p>CITROEN JUMPY</p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="v-align-middle">
-                                            <p>05</p>
-                                        </td>
-                                        <td class="v-align-middle">
-                                            <p>CITROEN JUMPY</p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="v-align-middle">
-                                            <p>05</p>
-                                        </td>
-                                        <td class="v-align-middle">
-                                            <p>CITROEN JUMPY</p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="v-align-middle">
-                                            <p>05</p>
-                                        </td>
-                                        <td class="v-align-middle">
-                                            <p>CITROEN JUMPY</p>
-                                        </td>
-                                    </tr>
+                                <tbody id="dataVehicles">
                                 </tbody>
                             </table>
                         </div>
@@ -267,8 +228,7 @@
 
                             <div class="pull-right">
                                 <div class="col-xs-12">
-                                    <button id="show-modal" class="btn btn-primary btn-cons" data-toggle="modal" data-target="#addCar"><i class="fa fa-plus"></i> Novo Veículo
-                    </button>
+                                    
                                 </div>
                             </div>
                             <div class="clearfix"></div>
