@@ -219,36 +219,39 @@
         var markers = []; // Create a marker array to hold your markers
         
 
-        function setMarkers(vehicles) {
+        function setMarkers(itineraries) {
             
-            for (var i = 0; i < vehicles.length; i++) {
-                var vehicle = vehicles[i];
+            for (var i = 0; i < itineraries.length; i++) {
+                var itinerarie = itineraries[i];
                 
-                if(vehicle.last_location){
-                    console.log(vehicle)
+                if(itinerarie.vehicle.last_location){
+                    
                 
-                var myLatLng = new google.maps.LatLng(vehicle.last_location.latitude, vehicle.last_location.longitude);
+                var myLatLng = new google.maps.LatLng(itinerarie.vehicle.last_location.latitude, itinerarie.vehicle.last_location.longitude);
                 
                 var infowindow = new google.maps.InfoWindow({
-                    content: vehicle.status
+                    content: itinerarie.status
                 });
                 
-                var marker = new google.maps.Marker({
+                    var marker = new google.maps.Marker({
                     position: myLatLng,
                     map: map,
-                    icon: entrega,
-                    title: vehicle.company_id,
+                    icon: itinerarie.situation.vehicle == "Coleta" ? coleta : entrega,
+                    title: itinerarie.vehicle.company_id,
                     zIndex: 2,
                     label: {
-                        text: vehicle.id.toString(),
+                        text: itinerarie.vehicle.id.toString(),
                         color: 'white'
                     }
                 });
+                
+                
             }
             
         google.maps.event.addListener(marker, 'click', (function(marker, i) {
             return function() {
-            infowindow.setContent(vehicle.status);
+                console.log(itinerarie)
+            infowindow.setContent(itinerarie.status);
             infowindow.open(map, marker);
         }
 })(marker, i));
@@ -265,8 +268,8 @@
 
             $.ajax({
                 method:"GET",
-                url:"https://epturc-levo.herokuapp.com/api/v1/vehicles" ,
-                success:(vehicles) =>{
+                url:"https://epturc-levo.herokuapp.com/api/v1/itineraries" ,
+                success:(itineraries) =>{
                     for (var i = 0; i < markers.length; i++) {
 
                         markers[i].setMap(null);
@@ -275,7 +278,7 @@
                         // Reset the markers array
                         markers = [];
                         
-                    setMarkers(vehicles)
+                    setMarkers(itineraries)
                 },
                 error:(error)=>{
                     console.log(error)
@@ -299,8 +302,8 @@
             
             $.ajax({
                 method:"GET",
-                url:"https://epturc-levo.herokuapp.com/api/v1/vehicles" ,
-                success:(vehicles) =>{
+                url:"https://epturc-levo.herokuapp.com/api/v1/itineraries" ,
+                success:(itineraries) =>{
                     
                     for (var i = 0; i < markers.length; i++) {
 
@@ -308,7 +311,7 @@
                     }
                         markers = [];
                         
-                    setMarkers(vehicles)
+                    setMarkers(itineraries)
                 },
                 error:(error)=>{
                     console.log(error)
