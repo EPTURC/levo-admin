@@ -42,7 +42,34 @@ $("#form-cadastro-motorista").submit(function( event ) {
 })
 
 $(document).ready(() => {
-    
+    $("input[id*='cpf-motorista']").inputmask({
+        mask: ['999.999.999-99'],
+        keepStatic: true
+    });
+
+    $("input[id*='rg-motorista']").inputmask({
+        mask: ['999.999.999'],
+        keepStatic: true
+    });
+
+
+    $( "#tableDriveWithDynamicRows").on( "click","tr", function() { 
+        let data = $(this).children().children()
+        
+        let driver = {
+            name: data[0].textContent,
+            cpf: data[1].textContent,
+            rg: data[2].textContent,
+        }
+        
+
+        $("#addDriver").modal('show')
+        $("#nome-motorista").val(driver.name)
+        $("cpf-motorista").val(driver.cpf)
+        $("#rg-motorista").val(driver.rg)
+
+    });
+
     $.ajax({
         method:"GET",
         url:baseUrl+"drivers",

@@ -173,7 +173,7 @@
                                  <div class="form-group-attached">
                                     <div class="form-group form-group-default required">
                                        <label>RG</label>
-                                       <input type="text" class="form-control" name="rg-motorista" id="rg-motorista" required>
+                                       <input type="text" class="form-control" name="rg-motorista" id="rg-motorista" maxlenght="9" required>
                                     </div>
                                  </div>
                                  <br>
@@ -188,7 +188,7 @@
                   <!-- END MODAL FORM ADD DRIVER   -->
                   <!-- START TABLE OF DRIVERS -->
                   <div class="card-block">
-                     <table class="table table-hover demo-table-dynamic table-responsive-block" id="tableWithDynamicRows">
+                     <table class="table table-hover demo-table-dynamic table-responsive-block" id="tableDriveWithDynamicRows">
                         <thead>
                            <tr>
                               <th>Nome</th>
@@ -196,7 +196,7 @@
                               <th>RG</th>
                            </tr>
                         </thead>
-                        <tbody id="dataDrivers">
+                        <tbody id="dataDrivers" style="cursor: pointer">
                         </tbody>
                      </table>
                   </div>
@@ -253,6 +253,7 @@
       <!-- END PAGE LEVEL JS -->
       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnMZTSqmb4-LDEDoXW-NwyUdDYN9VMVf8&sensor=false&libraries=places" type="text/javascript"></script>
       <script src="assets/js/locationpicker.jquery.min.js" type="text/javascript"></script>
+      <script src="assets/js/jquery.inputmask.bundle.min.js"></script>
       <script src="assets/js/motorista.js" type="text/javascript"></script>
    </body>
 </html>

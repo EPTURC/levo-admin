@@ -39,13 +39,36 @@ $("#form-cadastro-veiculo").submit(function( event ) {
 
 
 $(document).ready(() => {
-    
+    $("input[id*='license-plate']").inputmask({
+        mask: ['AAAA-9999'],
+        keepStatic: true
+    });
+
+    $( "#tableWithDynamicRows").on( "click","tr", function() { 
+        let data = $(this).children().children()
+        
+        let vehicle = {
+            license_plate: data[0].textContent,
+            model: data[1].textContent,
+            company_id: data[2].textContent,
+            color: data[3].textContent
+        }
+        
+
+        $("#addCar").modal('show')
+        $("#license-plate").val(vehicle.license_plate)
+        $("#model-vehicle").val(vehicle.model)
+        $("#company-id").val(vehicle.company_id)
+        $("#color-vehicle").val(vehicle.color)
+
+    });
+
     $.ajax({
         method:"GET",
         url:baseUrl+"vehicles",
         success: (result) => {
             result.map(vehicle => {
-                console.log(vehicle)
+                
                 $('#dataVehicles').append(`
                                 <tr>
                                     <td class="v-align-middle">
