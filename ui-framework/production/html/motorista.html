@@ -186,11 +186,66 @@
                      <!-- /.modal-dialog -->
                   </div>
                   <!-- END MODAL FORM ADD DRIVER   -->
+                  <!-- START MODAL FORM EDIT/DELETE DRIVER   -->
+                  <div class="modal fade stick-up" id="editDeleteDriverModal" tabindex="-1" role="dialog" aria-labelledby="editDeleteDriverModal" aria-hidden="true">
+                    <div class="modal-dialog">
+                       <div class="modal-content">
+                          <div class="modal-header clearfix text-left">
+                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                             <i class="pg-close fs-14"></i>
+                             </button>
+                             <h5>Editar ou deletar <span class="semi-bold">Motorista</span></h5>
+                          </div>
+                          <div class="modal-body">
+                             <form id="form-edit-motorista" role="form" method="post" autocomplete="off">
+                                <div class="alert" role="alert" id="alert-form-driver-edit">
+                                   <button class="close" data-dismiss="alert"></button>
+                                   <span id="text-alert-edit"></span>
+                                </div>
+                                <p>Informações sobre o motorista</p>
+                                <div class="form-group-attached" style="display: none">
+                                        <div class="form-group form-group-default ">
+                                           <label>Id do veículo</label>
+                                           <input type="text" class="form-control" name="id-edit" id="id-edit">
+                                        </div>
+                                </div>
+                                <div class="form-group-attached">
+                                   <div class="form-group form-group-default required">
+                                      <label>Nome</label>
+                                      <input type="text" class="form-control" name="nome-editDelete-motorista" id="nome-editDelete-motorista" required>
+                                   </div>
+                                </div>
+                                <br>
+                                <div class="form-group-attached">
+                                   <div class="form-group form-group-default required">
+                                      <label>CPF</label>
+                                      <input type="text" class="form-control" name="cpf-editDelete-motorista" id="cpf-editDelete-motorista" required>
+                                   </div>
+                                </div>
+                                <br>
+                                <div class="form-group-attached">
+                                   <div class="form-group form-group-default required">
+                                      <label>RG</label>
+                                      <input type="text" class="form-control" name="rg-editDelete-motorista" id="rg-editDelete-motorista" maxlenght="9" required>
+                                   </div>
+                                </div>
+                                <br>
+                                <button class="btn btn-success" type="submit" id="editDriver">Editar Motorista</button>
+                                <button class="btn btn-danger" type="submit" id="deleteDriver">Deletar Motorista</button>
+                             </form>
+                          </div>
+                       </div>
+                       <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                 </div>
+                  <!-- END MODAL FORM EDIT/DELETE DRIVER   -->
                   <!-- START TABLE OF DRIVERS -->
                   <div class="card-block">
                      <table class="table table-hover demo-table-dynamic table-responsive-block" id="tableDriveWithDynamicRows">
                         <thead>
                            <tr>
+                              <th style="display: none">id</th>
                               <th>Nome</th>
                               <th>CPF</th>
                               <th>RG</th>

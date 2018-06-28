@@ -39,56 +39,125 @@ $("#form-cadastro-veiculo").submit(function( event ) {
 
 
 $(document).ready(() => {
-    $("input[id*='license-plate']").inputmask({
-        mask: ['AAAA-9999'],
-        keepStatic: true
-    });
+    setMasks();
+    getVehicles();
 
+    // start of events
     $( "#tableWithDynamicRows").on( "click","tr", function() { 
         let data = $(this).children().children()
         
         let vehicle = {
-            license_plate: data[0].textContent,
-            model: data[1].textContent,
-            company_id: data[2].textContent,
-            color: data[3].textContent
+            id: parseInt(data[0].textContent),
+            license_plate: data[1].textContent,
+            model: data[2].textContent,
+            company_id: data[3].textContent,
+            color: data[4].textContent
         }
-        
 
-        $("#addCar").modal('show')
-        $("#license-plate").val(vehicle.license_plate)
-        $("#model-vehicle").val(vehicle.model)
-        $("#company-id").val(vehicle.company_id)
-        $("#color-vehicle").val(vehicle.color)
+
+        $("#editDeleteVehicle").modal('show')
+        $("#id-edit").val(vehicle.id)
+        $("#license-plate-edit").val(vehicle.license_plate)
+        $("#model-vehicle-edit").val(vehicle.model)
+        $("#company-id-edit").val(vehicle.company_id)
+        $("#color-vehicle-edit").val(vehicle.color)
 
     });
 
-    $.ajax({
-        method:"GET",
-        url:baseUrl+"vehicles",
-        success: (result) => {
-            result.map(vehicle => {
-                
-                $('#dataVehicles').append(`
-                                <tr>
-                                    <td class="v-align-middle">
-                                        <p>${vehicle.license_plate || "desconhecido"}</p>
-                                    </td>
-                                    <td class="v-align-middle">
-                                        <p>${vehicle.model || "desconhecido"}</p>
-                                    </td>
-                                    <td class="v-align-middle">
-                                        <p>${vehicle.company_id|| "desconhecido"}</p>
-                                    </td>
-                                    <td class="v-align-middle">
-                                        <p>${vehicle.color|| "desconhecido"}</p>
-                                    </td>
-                                </tr>
-                           `)
-            })
-        },
-        error: (err) =>{
-            console.log(err)
-        }
-    })
+    $("#editVehicle").on( "click", function() { 
+
+        $.ajax({
+            method:"PUT",
+            url:baseUrl+`/${paserInt($("#id-edit").val())}`,
+            success: (result) => {
+                $("#text-alert-edit").html("Veículo editado com sucesso!");
+                $("#alert-form-driver-edit").toggleClass("alert-success").show();
+            },
+            error: (err) =>{
+                $("#text-alert").html("Ocorreu um erro na edição!");
+                $("#alert-form-driver-edit").toggleClass("alert-danger").show();
+
+            }
+        })
+
+        $("#id-edit").val('')
+        $("#company-id-edit").val('')
+        $("#color-vehicle-edit").val('')
+        $("#model-vehicle-edit").val('')
+        $("#license-plate-edit").val('')
+        
+
+    });
+
+    $("#deleteVehicle").on( "click", function() { 
+        
+        $.ajax({
+            method:"DELETE",
+            url:baseUrl+`/${paserInt($("#id-edit").val())}`,
+            success: (result) => {
+                $("#text-alert-edit").html("Veículo editado com sucesso!");
+                $("#alert-form-driver-edit").toggleClass("alert-success").show();
+            },
+            error: (err) =>{
+                $("#text-alert").html("Ocorreu um erro na edição!");
+                $("#alert-form-driver-edit").toggleClass("alert-danger").show();
+
+            }
+        })
+
+        $("#company-id-edit").val('')
+        $("#color-vehicle-edit").val('')
+        $("#model-vehicle-edit").val('')
+        $("#license-plate-edit").val('')
+
+    });
+    //end of events
+
+    function setMasks(){
+        $("input[id*='license-plate']").inputmask({
+            mask: ['AAAA-9999'],
+            keepStatic: true
+        });
+    
+        $("input[id*='license-plate-editDelete']").inputmask({
+            mask: ['AAAA-9999'],
+            keepStatic: true
+        });
+    }
+
+
+    function getVehicles(){
+        $.ajax({
+            method:"GET",
+            url:baseUrl+"vehicles",
+            success: (result) => {
+                result.map(vehicle => {
+                    
+                    $('#dataVehicles').append(`
+                                    <tr>
+                                        <td class="v-align-middle" style="display:none">
+                                            <p>${vehicle.id}</p>
+                                        </td>
+                                        <td class="v-align-middle">
+                                            <p>${vehicle.license_plate || "desconhecido"}</p>
+                                        </td>
+                                        <td class="v-align-middle">
+                                            <p>${vehicle.model || "desconhecido"}</p>
+                                        </td>
+                                        <td class="v-align-middle">
+                                            <p>${vehicle.company_id|| "desconhecido"}</p>
+                                        </td>
+                                        <td class="v-align-middle">
+                                            <p>${vehicle.color|| "desconhecido"}</p>
+                                        </td>
+                                    </tr>
+                               `)
+                })
+            },
+            error: (err) =>{
+                console.log(err)
+            }
+        })
+    
+    }
 })
