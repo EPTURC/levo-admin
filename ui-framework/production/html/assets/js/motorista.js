@@ -9,25 +9,30 @@ $("#form-cadastro-motorista").submit(function( event ) {
    let rg = $("#rg-motorista").val()
 
    event.preventDefault();
-   $.post( driveUrl, { driver: { name: name, cpf:cpf, rg:rg} })
+   $.post( userUrl, { user: { name: name, cpf:cpf, rg:rg} })
    .done(function( dataUser ) {
-            $("#text-alert").html("Motorista cadastrado com sucesso!");
-            $("#alert-form-driver").toggleClass("alert-success").show();
-            
-            $('#dataDrivers').append(`
-                                <tr>
-                                    <td class="v-align-middle">
-                                        <p>${name}</p>
-                                    </td>
-                                    <td class="v-align-middle">
-                                        <p>${cpf}</p>
-                                    </td>
-                                    <td class="v-align-middle">
-                                        <p>${rg}</p>
-                                    </td>
-                                </tr>
-                            `)
-        
+      $.post( driveUrl, { driver: { user_id: dataUser.id } })
+      .done(function( dataDriver ) {
+         $("#text-alert").html("Motorista cadastrado com sucesso!");
+         $('#dataDrivers').append(`
+            <tr>
+                <td class="v-align-middle">
+                    <p>${dataUser.name}</p>
+                </td>
+                <td class="v-align-middle">
+                    <p>${dataUser.cpf}</p>
+                </td>
+                <td class="v-align-middle">
+                    <p>${dataUser.rg}</p>
+                </td>
+            </tr>
+        `)
+         $("#alert-form-driver").toggleClass("alert-success").show();
+      })
+      .fail(function() {
+         $("#text-alert").html("Ocorreu algum erro no cadastro!");
+         $("#alert-form-driver").toggleClass("alert-danger").show();
+      });
    })
    .fail(function() {
       $("#text-alert").html("Ocorreu algum erro no cadastro!");
