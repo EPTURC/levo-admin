@@ -42,61 +42,61 @@
         <!-- END SIDEBAR MENU HEADER-->
         <!-- START SIDEBAR MENU -->
         <div class="sidebar-menu">
-                <!-- BEGIN SIDEBAR MENU ITEMS-->
-                <ul class="menu-items">
-                    <li class="active m-t-20">
-                        <a href="mapa.html" class="detailed">
+            <!-- BEGIN SIDEBAR MENU ITEMS-->
+            <ul class="menu-items">
+                <li class="active m-t-20">
+                    <a href="mapa.html" class="detailed">
               <span class="title">Mapa</span>
               <span class="details">Rastreie sua frota</span>
             </a>
-                        <span class="bg-success icon-thumbnail"><i class="pg-map"></i></span>
-                    </li>
+                    <span class="bg-success icon-thumbnail"><i class="pg-map"></i></span>
+                </li>
 
-                    <li>
-                        <a href="javascript:;"><span class="title">Itinerário</span>
+                <li>
+                    <a href="javascript:;"><span class="title">Itinerário</span>
             <span class=" arrow"></span></a>
-                        <span class="icon-thumbnail"><i class="fa fa-map"></i></span>
-                        <ul class="sub-menu">
-                            <li class="">
-                                <a href="itinerario.html">Tarefas</a>
-                                <span class="icon-thumbnail"><i class="pg-form"></i></span>
-                            </li>
-                            <li class="">
-                                <a href="rota.html">Rota de Entregas</a>
-                                <span class="icon-thumbnail"><i class="pg-note"></i></span>
-                            </li>
-                        </ul>
-                    </li>
+                    <span class="icon-thumbnail"><i class="fa fa-map"></i></span>
+                    <ul class="sub-menu">
+                        <li class="">
+                            <a href="itinerario.html">Tarefas</a>
+                            <span class="icon-thumbnail"><i class="pg-form"></i></span>
+                        </li>
+                        <li class="">
+                            <a href="rota.html">Rota de Entregas</a>
+                            <span class="icon-thumbnail"><i class="pg-note"></i></span>
+                        </li>
+                    </ul>
+                </li>
 
 
-                    <!--<li class="m-t-20">
+                <!--<li class="m-t-20">
                     <a href="rotas.html" class="detailed">
                       <span class="title">Rotas</span>
                       <span class="details">Cadastro</span>
                     </a>
                     <span class="icon-thumbnail"><i class="pg-bag"></i></span>
                 </li> -->
-                    <li>
-                        <a href="motorista.html" class="detailed">
+                <li>
+                    <a href="motorista.html" class="detailed">
                     <span class="title">Motoristas</span>
                     <span class="details">Gerencie sua equipe</span>
                       </a>
-                        <span class="icon-thumbnail"><i class="fa fa-user"></i></span>
+                    <span class="icon-thumbnail"><i class="fa fa-user"></i></span>
 
-                    </li>
-                    <li>
-                        <a href="veiculo.html" class="detailed">
+                </li>
+                <li>
+                    <a href="veiculo.html" class="detailed">
                     <span class="title">Veículos</span>
                     <span class="details">Gerencie sua frota</span>
                       </a>
-                        <span class="icon-thumbnail"><i class="fa fa-truck"></i></span>
+                    <span class="icon-thumbnail"><i class="fa fa-truck"></i></span>
 
-                    </li>
+                </li>
 
-                
+
             </ul>
-                <div class="clearfix"></div>
-            </div>
+            <div class="clearfix"></div>
+        </div>
         <!-- END SIDEBAR MENU -->
     </nav>
     <!-- END SIDEBAR -->
@@ -191,19 +191,128 @@
     <script src="assets/js/scripts.js" type="text/javascript"></script>
     <!-- END PAGE LEVEL JS -->
 
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnMZTSqmb4-LDEDoXW-NwyUdDYN9VMVf8&callback=initMap" type="text/javascript"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnMZTSqmb4-LDEDoXW-NwyUdDYN9VMVf8&libraries=places" type="text/javascript"></script>
 
 
     <script type="text/javascript">
-        setTimeout(function() {
-            location = ''
-        }, 30000)
+        var coleta = {
+            url: 'https://i.imgur.com/bkQg3bo.png',
+            // This marker is 20 pixels wide by 32 pixels high.
+            size: new google.maps.Size(32, 32),
+            // The origin for this image is (0, 0).
+            origin: new google.maps.Point(0, 0),
+            // The anchor for this image is the base of the flagpole at (0, 32).
+            anchor: new google.maps.Point(0, 32),
+        };
+        
+        
+        var entrega = {
+                url: 'https://i.imgur.com/ZiLQrIN.png',
+                size: new google.maps.Size(32, 32),
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(0, 32),
+            };
+
+
+
+        var map;
+        var markers = []; // Create a marker array to hold your markers
+        var vehicles = [
+            ['Numero I', -5.8321357, -35.2053167, 1, '1', 'coleta'],
+            ['Numero II', -5.827117, -35.208643, 2, '2', 'entrega']
+        ];
+
+        function setMarkers(locations) {
+
+            for (var i = 0; i < locations.length; i++) {
+                var vehicle = locations[i];
+                var myLatLng = new google.maps.LatLng(vehicle[1], vehicle[2]);
+                
+                var infowindow = new google.maps.InfoWindow({
+                    content: vehicle[0]
+                });
+
+                
+                var marker = new google.maps.Marker({
+                    position: myLatLng,
+                    map: map,
+                    icon: entrega,
+                    animation: google.maps.Animation.DROP,
+                    title: vehicle[0],
+                    zIndex: vehicle[3],
+                    label: {
+                        text: vehicle[4],
+                        color: 'white'
+                    }
+                });
+                
+                google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations[i][0]);
+          infowindow.open(map, marker);
+        }
+})(marker, i));
+
+
+                // Push marker to markers array
+                markers.push(marker);
+            }
+        }
+
+        function reloadMarkers() {
+
+            // Loop through markers and set map to null for each
+            for (var i = 0; i < markers.length; i++) {
+
+                markers[i].setMap(null);
+            }
+
+            // Reset the markers array
+            markers = [];
+
+            // Call set markers to re-add markers
+            setMarkers(vehicles);
+        }
+
+        function initialize() {
+
+            var mapOptions = {
+                zoom: 15,
+                center: {
+                    lat: -5.8321357,
+                    lng: -35.2053167
+                },
+                disableDefaultUI: true
+            }
+
+            map = new google.maps.Map(document.getElementById('google-map'), mapOptions);
+
+            setMarkers(vehicles);
+
+        }
+
+        initialize();
+
+        setInterval(function() {
+            reloadMarkers();
+        }, 5000);
+
+        var zoomLevel = 15;
+
+        $(document).ready(function() {
+            $('#map-zoom-in').click(function() {
+                map.setZoom(++zoomLevel);
+            });
+            $('#map-zoom-out').click(function() {
+                map.setZoom(--zoomLevel);
+            });
+        });
 
     </script>
-    
-    
-    <script>
-        // The following example creates complex markers to indicate beaches near
+
+
+    <!-- <script>
+        // The following example creates complex markers to indicate vehicles near
         // Sydney, NSW, Australia. Note that the anchor is set to (0,32) to correspond
         // to the base of the flagpole.
                  
@@ -242,6 +351,16 @@
 
         function setMarkers(vehicles, map) {
             
+            
+            for (let i = 0; i < vehicles.length; i++) {
+                var vehicle = null;
+                var marker = new google.maps.Marker({
+        
+                    map: map
+
+                });
+            }
+            
             var moving = {
                 url: 'https://i.imgur.com/i5fv2wL.png',
                 size: new google.maps.Size(32, 32),
@@ -265,7 +384,7 @@
             
           
             var image = {
-                url: 'z',
+                url: 'https://i.imgur.com/i5fv2wL.png',
                 // This marker is 20 pixels wide by 32 pixels high.
                 size: new google.maps.Size(32, 32),
                 // The origin for this image is (0, 0).
@@ -289,6 +408,7 @@
                         lng: parseFloat(vehicle.last_location.longitude)
                     },
                     map: map,
+                    animation: google.maps.Animation.DROP,
                     icon: image,
                     shape: shape,
                     title: vehicle.company_id,
@@ -309,12 +429,17 @@
                     };
                 })(marker,infowindow));
         }
+        
+        
+        setInterval(function () {
+		
+	}, 4000);
                 
 
-    </script>
+    </script> -->
 
     <!--<script>
-        // The following example creates complex markers to indicate beaches near
+        // The following example creates complex markers to indicate vehicles near
         // Sydney, NSW, Australia. Note that the anchor is set to (0,32) to correspond
         // to the base of the flagpole.
 
