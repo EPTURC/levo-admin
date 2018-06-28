@@ -9,7 +9,7 @@ $("#form-cadastro-motorista").submit(function( event ) {
    let rg = $("#rg-motorista").val()
 
    event.preventDefault();
-   $.post( userUrl, { user: { name: name, cpf:cpf, rg:rg} })
+   $.post( driveUrl, { driver: { name: name, cpf:cpf, rg:rg} })
    .done(function( dataUser ) {
             $("#text-alert").html("Motorista cadastrado com sucesso!");
             $("#alert-form-driver").toggleClass("alert-success").show();
@@ -36,6 +36,10 @@ $("#form-cadastro-motorista").submit(function( event ) {
    $("#form-cadastro-motorista")[0].reset();
 })
 
+$("#form-edit-motorista").submit(function( event ) {
+    event.preventDefault()
+ })
+ 
 $(document).ready(() => {
    
     setMasks();
@@ -63,15 +67,24 @@ $(document).ready(() => {
     });
     
     $("#editDriver").on( "click", function() { 
+        let userToSend = {
+            nome: $("#nome-editDelete-motorista").val(),
+            cpf: $("cpf-editDelete-motorista").val(),
+            rg: $("#rg-editDelete-motorista").val()
+        }
+
         $.ajax({
             method:"PUT",
-            url:baseUrl+`/${paserInt($("#id-edit").val())}`,
+            type:"application/json",
+            url:baseUrl+`drivers/${parseInt($("#id-edit").val())}`,
+            data:userToSend,
             success: (result) => {
                 $("#text-alert-edit").html("Veículo editado com sucesso!");
                 $("#alert-form-driver-edit").toggleClass("alert-success").show();
-                setTimeout(() => {window.location.reload()},2000 )
+                //setTimeout(() => {window.location.reload()},2000 )
             },
             error: (err) =>{
+                console.log(err)
                 $("#text-alert").html("Ocorreu um erro na edição!");
                 $("#alert-form-driver-edit").toggleClass("alert-danger").show();
 
@@ -89,7 +102,7 @@ $(document).ready(() => {
     $("#deleteDriver").on( "click", function() { 
         $.ajax({
             method:"DELETE",
-            url:baseUrl+`/${paserInt($("#id-edit").val())}`,
+            url:baseUrl+`drivers/${parseInt($("#id-edit").val())}`,
             success: (result) => {
                 $("#text-alert-edit").html("Veículo editado com sucesso!");
                 $("#alert-form-driver-edit").toggleClass("alert-success").show();
