@@ -140,15 +140,15 @@
                             </div>
                             <div class="pull-right">
                                 <div class="col-xs-12">
-                                    <button id="show-modal" class="btn btn-primary btn-cons" data-toggle="modal" data-target="#addCar"><i class="fa fa-plus"></i> Novo Veículo
+                                    <button id="show-modal" class="btn btn-primary btn-cons" data-toggle="modal" data-target="#addVehicle"><i class="fa fa-plus"></i> Novo Veículo
                     </button>
                                 </div>
                             </div>
                             <div class="clearfix"></div>
                         </div>
 
-                        <!-- MODAL FORM ADD DRIVER  -->
-                        <div class="modal fade stick-up" id="addCar" tabindex="-1" role="dialog" aria-labelledby="addCar" aria-hidden="true">
+                        <!-- MODAL FORM ADD VEHICLE  -->
+                        <div class="modal fade stick-up" id="addVehicle" tabindex="-1" role="dialog" aria-labelledby="addVehicle" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header clearfix text-left">
@@ -202,13 +202,77 @@
                             </div>
                             <!-- /.modal-dialog -->
                         </div>
-                        <!-- END MODAL FORM ADD DRIVER   -->
+                        <!-- END MODAL FORM ADD VEHICLES   -->
 
+                        <!-- START MODAL EDIT OR DELETE OF VEHICLES -->
+                        <div class="modal fade stick-up" id="editDeleteVehicle" tabindex="-1" role="dialog" aria-labelledby="editDeleteVehicle" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header clearfix text-left">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                    <i class="pg-close fs-14"></i>
+                                        </button>
+                                        <h5>Cadastrar <span class="semi-bold">Veículo</span></h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="form-edit-veiculo" role="form" method="post" autocomplete="off">
+                                 <div class="alert" role="alert" id="alert-form-driver-edit">
+                                    <button class="close" data-dismiss="alert"></button>
+                                    <span id="text-alert-edit"></span>
+                                 </div>
+                                 <div class="form-group-attached" style="display: none">
+                                        <div class="form-group form-group-default ">
+                                           <label>Id do veículo</label>
+                                           <input type="text" class="form-control" name="id-edit" id="id-edit">
+                                        </div>
+                                </div>
+                                 <p>Informações sobre o veículo</p>
+                                 <div class="form-group-attached">
+                                    <div class="form-group form-group-default required">
+                                       <label>Placa do veículo</label>
+                                       <input type="text" class="form-control" name="license-plate-edit" id="license-plate-edit" required>
+                                    </div>
+                                 </div>
+                                 <br>
+                                 
+                                 <div class="form-group-attached">
+                                        <div class="form-group form-group-default required">
+                                           <label>Modelo do veículo</label>
+                                           <input type="text" class="form-control" name="model-vehicle-edit" id="model-vehicle-edit" required>
+                                        </div>
+                                </div>
+                                <br>
+                                 <div class="form-group-attached">
+                                        <div class="form-group form-group-default required">
+                                           <label>Companhia do veículo</label>
+                                           <input type="text" class="form-control" name="company-id-edit" id="company-id-edit" required>
+                                        </div>
+                                     </div>
+                                     <br>
+                                     <div class="form-group-attached">
+                                        <div class="form-group form-group-default required">
+                                           <label>Cor do veículo</label>
+                                           <input type="text" class="form-control" name="color-vehicle-edit" id="color-vehicle-edit" required>
+                                        </div>
+                                     </div>
+                                     <br>
+                                 <button class="btn btn-success" id="editVehicle" type="submit">Editar Veículo</button>
+                                 <button class="btn btn-danger" id="deleteVehicle" type="submit">Deletar Veículo</button>
+                              </form>
+
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                        <!-- END MODAL EDIT OR DELETE OF VEHICLES -->
                         <!-- START TABLE OF DRIVERS -->
                         <div class="card-block">
-                            <table class="table table-hover demo-table-dynamic table-responsive-block" id="tableDriveWithDynamicRows">
+                            <table class="table table-hover demo-table-dynamic table-responsive-block" id="tableWithDynamicRows">
                                 <thead>
                                     <tr>
+                                        <th style="display: none">id</th>
                                         <th>Placa</th>
                                         <th>Modelo</th>
                                         <th>Companhia</th>

@@ -1,4 +1,6 @@
+
 let baseUrl = "https://epturc-levo.herokuapp.com/api/v1/"
+
 $("#form-cadastro-motorista").submit(function( event ) {
    let userUrl = baseUrl + "users"
    let driveUrl = baseUrl + "drivers"
@@ -9,11 +11,9 @@ $("#form-cadastro-motorista").submit(function( event ) {
    event.preventDefault();
    $.post( userUrl, { user: { name: name, cpf:cpf, rg:rg} })
    .done(function( dataUser ) {
-      $.post( driveUrl, { driver: { user_id: dataUser.id } })
-        .done(function( dataDriver ) {
             $("#text-alert").html("Motorista cadastrado com sucesso!");
             $("#alert-form-driver").toggleClass("alert-success").show();
-
+            
             $('#dataDrivers').append(`
                                 <tr>
                                     <td class="v-align-middle">
@@ -27,12 +27,7 @@ $("#form-cadastro-motorista").submit(function( event ) {
                                     </td>
                                 </tr>
                             `)
-            
-        })
-        .fail(function() {
-            $("#text-alert").html("Ocorreu algum erro no cadastro!");
-            $("#alert-form-driver").toggleClass("alert-danger").show();
-        });
+        
    })
    .fail(function() {
       $("#text-alert").html("Ocorreu algum erro no cadastro!");
@@ -42,57 +37,130 @@ $("#form-cadastro-motorista").submit(function( event ) {
 })
 
 $(document).ready(() => {
-    $("input[id*='cpf-motorista']").inputmask({
-        mask: ['999.999.999-99'],
-        keepStatic: true
-    });
-
-    $("input[id*='rg-motorista']").inputmask({
-        mask: ['999.999.999'],
-        keepStatic: true
-    });
-
-
+   
+    setMasks();
+    getDrivers();
+    
+    // Events
     $( "#tableDriveWithDynamicRows").on( "click","tr", function() { 
+        
         let data = $(this).children().children()
         
         let driver = {
-            name: data[0].textContent,
-            cpf: data[1].textContent,
-            rg: data[2].textContent,
+            id:  data[0].textContent,
+            name: data[1].textContent,
+            cpf: data[2].textContent,
+            rg: data[3].textContent,
         }
         
+        $("#id-edit").val(driver.id)
+        $("#nome-editDelete-motorista").val(driver.name)
+        $("cpf-editDelete-motorista").val(driver.cpf)
+        $("#rg-editDelete-motorista").val(driver.rg)
 
-        $("#addDriver").modal('show')
-        $("#nome-motorista").val(driver.name)
-        $("cpf-motorista").val(driver.cpf)
-        $("#rg-motorista").val(driver.rg)
+        $("#editDeleteDriverModal").modal('show')
+
+    });
+    
+    $("#editDriver").on( "click", function() { 
+        $.ajax({
+            method:"PUT",
+            url:baseUrl+`/${paserInt($("#id-edit").val())}`,
+            success: (result) => {
+                $("#text-alert-edit").html("Veículo editado com sucesso!");
+                $("#alert-form-driver-edit").toggleClass("alert-success").show();
+                setTimeout(() => {window.location.reload()},2000 )
+            },
+            error: (err) =>{
+                $("#text-alert").html("Ocorreu um erro na edição!");
+                $("#alert-form-driver-edit").toggleClass("alert-danger").show();
+
+            }
+        })
+
+        $("#id-edit").val('')
+        $("#nome-editDelete-motorista").val('')
+        $("cpf-editDelete-motorista").val('')
+        $("#rg-editDelete-motorista").val('')
+
 
     });
 
-    $.ajax({
-        method:"GET",
-        url:baseUrl+"drivers",
-        success: (result) => {
-            result.map(driver => {
-                
-                $('#dataDrivers').append(`
-                                <tr>
-                                    <td class="v-align-middle">
-                                        <p>${driver.user.name || "desconhecido"}</p>
-                                    </td>
-                                    <td class="v-align-middle">
-                                        <p>${driver.user.cpf || "desconhecido"}</p>
-                                    </td>
-                                    <td class="v-align-middle">
-                                        <p>${driver.user.rg || "desconhecido"}</p>
-                                    </td>
-                                </tr>
-                           `)
-            })
-        },
-        error: (err) =>{
-            console.log(err)
-        }
-    })
+    $("#deleteDriver").on( "click", function() { 
+        $.ajax({
+            method:"DELETE",
+            url:baseUrl+`/${paserInt($("#id-edit").val())}`,
+            success: (result) => {
+                $("#text-alert-edit").html("Veículo editado com sucesso!");
+                $("#alert-form-driver-edit").toggleClass("alert-success").show();
+                setTimeout(() => {window.location.reload()},2000 )
+            },
+            error: (err) =>{
+                $("#text-alert").html("Ocorreu um erro na edição!");
+                $("#alert-form-driver-edit").toggleClass("alert-danger").show();
+
+            }
+        })
+
+        $("#id-edit").val('')
+        $("#nome-editDelete-motorista").val('')
+        $("cpf-editDelete-motorista").val('')
+        $("#rg-editDelete-motorista").val('')
+
+    });
+    // End of events
+    
+    function setMasks(){
+        $("input[id*='cpf-motorista']").inputmask({
+            mask: ['999.999.999-99'],
+            keepStatic: true
+        });
+    
+        $("input[id*='rg-motorista']").inputmask({
+            mask: ['999.999.999'],
+            keepStatic: true
+        });
+    
+        $("input[id*='cpf-editDelete-motorista']").inputmask({
+            mask: ['999.999.999-99'],
+            keepStatic: true
+        });
+    
+        $("input[id*='rg-editDelete-motorista']").inputmask({
+            mask: ['999.999.999'],
+            keepStatic: true
+        });
+    }
+
+    function getDrivers(){
+        $.ajax({
+            method:"GET",
+            url:baseUrl+"drivers",
+            success: (result) => {
+                result.map(driver => {
+                    
+                    $('#dataDrivers').append(`
+                                    <tr>
+                                        <td class="v-align-middle" style="display:none">
+                                            <p>${driver.id}</p>
+                                        </td>
+                                        <td class="v-align-middle">
+                                            <p>${driver.user.name || "desconhecido"}</p>
+                                        </td>
+                                        <td class="v-align-middle">
+                                            <p>${driver.user.cpf || "desconhecido"}</p>
+                                        </td>
+                                        <td class="v-align-middle">
+                                            <p>${driver.user.rg || "desconhecido"}</p>
+                                        </td>
+                                        
+                                    </tr>
+                               `)
+                })
+            },
+            error: (err) =>{
+                console.log(err)
+            }
+        })
+    }
 })
