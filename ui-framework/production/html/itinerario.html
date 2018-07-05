@@ -290,8 +290,68 @@
                         </div>
                         <!-- END MODAL FORM ADD DRIVER   -->
 
-                        <!-- START TABLE OF DRIVERS -->
-                        <!-- START card -->
+                        <div class="modal fade stick-up" id="editDeleteTask" tabindex="-1" role="dialog" aria-labelledby="editDeleteTask" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header clearfix text-left">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                    <i class="pg-close fs-14"></i>
+                                        </button>
+                                        <h5>Editar <span class="semi-bold">Tarefa</span></h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="form-edit-tarefa" role="form" method="post" autocomplete="off">
+                                 <div class="alert" role="alert" id="alert-form-driver-edit">
+                                    <button class="close" data-dismiss="alert"></button>
+                                    <span id="text-alert-edit"></span>
+                                 </div>
+                                 <div class="form-group-attached" style="display: none">
+                                        <div class="form-group form-group-default ">
+                                           <label>Id da tarefa</label>
+                                           <input type="text" class="form-control" name="id-edit" id="id-edit">
+                                        </div>
+                                </div>
+                                                                  <p>Informações sobre a encomenda</p>
+                                 <div class="form-group-attached">
+                                    <div class="form-group form-group-default required">
+                                       <label>Descrição</label>
+                                       <textarea class="form-control" rows="5" id="descricao-rota-edit" class="descricao-rota" required></textarea>
+                                    </div>
+                                 </div>
+                                 <div class="form-group-attached">
+                                    <div class="form-group form-group-default required">
+                                       <label>Responsável</label>
+                                       <textarea class="form-control" rows="5" id="responsavel-input-edit" class="responsavel-input" required></textarea>
+                                    </div>
+                                 </div>
+                                 <p class="m-t-10">Defina a rota:</p>
+                                 <div class="form-group-attached">
+                                    <div class="form-group form-group-default required">
+                                       <label>Local
+                                       </label>
+                                       <input type="text" class="form-control" name="ponto-coleta-input" id="local-input-edit" required>
+                                    </div>
+                                    <div class="row clearfix">
+                                          <input type="hidden" name="ponto-coleta-lat" id="local-lat-edit">
+                                       <div class="col-md-12">
+                                          <input type="hidden" name="ponto-coleta-lon" id="local-lon-edit">
+                                          <input type="hidden" name="ponto-coleta-radius" id="local-radius-edit">
+                                          <div id="local-mapa-edit" style="width: 100%; height: 300px;"></div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <input type="hidden" class="form-control" name="id-edit" id="taskType">
+                                 <button class="btn btn-success" id="editVehicle" type="submit">Editar Tarefa</button>
+                                 <button class="btn btn-danger" id="deleteVehicle" type="submit">Deletar Tarefa</button>
+                              </form>
+
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                        <!-- END MODAL EDIT OR DELETE OF VEHICLES -->
                 <div class="card-block">
                      <table class="table table-hover demo-table-dynamic table-responsive-block" id="tableTasks">
                         <thead>
@@ -367,48 +427,45 @@
       
        
        <script src="assets/js/locationpicker.jquery.min.js" type="text/javascript"></script>
-       <script src="assets/js/itinerario.js"></script>
-      <script>
-        $('#ponto-coleta-mapa').locationpicker({
-          location: {
-             latitude: -5.8321815,
-             longitude: -35.2053761
-          },
-          radius: 0,
-          addressFormat: 'address',
-          inputBinding: {
-             latitudeInput: $('#ponto-coleta-lat'),
-             longitudeInput: $('#ponto-coleta-lon'),
-             radiusInput: $('#ponto-coleta-radius'),
-             locationNameInput: $('#ponto-coleta-input')
-          },
-          enableAutocomplete: true,
-          onchanged: function (currentLocation, radius, isMarkerDropped) { }
-        });
-         
-        $('#ponto-entrega-mapa').locationpicker({
-          location: {
-             latitude: -5.8321815,
-             longitude: -35.2053761
-          },
-          radius: 0,
-          addressFormat: 'address',
-          inputBinding: {
-             latitudeInput: $('#ponto-entrega-lat'),
-             longitudeInput: $('#ponto-entrega-lon'),
-             radiusInput: $('#ponto-entrega-radius'),
-             locationNameInput: $('#ponto-entrega-input')
-          },
-          enableAutocomplete: true,
-          onchanged: function (currentLocation, radius, isMarkerDropped) { }
-         });
-         
-      </script>
-       
-       
        <script src="assets/plugins/jquery-nestable/jquery.nestable.js" type="text/javascript"></script>
        <script src="assets/js/itinerario.js" type="text/javascript"></script>
-       
+        <script>
+          $('#ponto-coleta-mapa').locationpicker({
+            location: {
+               latitude: -5.8321815,
+               longitude: -35.2053761
+            },
+            radius: 0,
+            addressFormat: 'address',
+            inputBinding: {
+               latitudeInput: $('#ponto-coleta-lat'),
+               longitudeInput: $('#ponto-coleta-lon'),
+               radiusInput: $('#ponto-coleta-radius'),
+               locationNameInput: $('#ponto-coleta-input')
+            },
+            enableAutocomplete: true,
+            onchanged: function (currentLocation, radius, isMarkerDropped) { }
+          });
+
+          $('#ponto-entrega-mapa').locationpicker({
+            location: {
+               latitude: -5.8321815,
+               longitude: -35.2053761
+            },
+            radius: 0,
+            addressFormat: 'address',
+            inputBinding: {
+               latitudeInput: $('#ponto-entrega-lat'),
+               longitudeInput: $('#ponto-entrega-lon'),
+               radiusInput: $('#ponto-entrega-radius'),
+               locationNameInput: $('#ponto-entrega-input')
+            },
+            enableAutocomplete: true,
+            onchanged: function (currentLocation, radius, isMarkerDropped) { }
+          });
+           
+        </script>
+
        
    </body>
 </html>
