@@ -116,7 +116,7 @@
             <div class="d-flex align-items-center box-branco">
                 <!-- START User Info-->
                 <div class="pull-left p-r-10 fs-14 font-heading hidden-md-down">
-                    <span class="text-master">Olá,</span> <span class="semi-bold" id="username">#USERNAME#</span>!
+                    <span class="text-master">Olá,</span> <span class="semi-bold" id="username">Eiji</span>!
                 </div>
 
                 <!-- END User Info-->
@@ -255,24 +255,25 @@
 
 
         function setMarkers(itineraries) {
-
+            
             for (var i = 0; i < itineraries.length; i++) {
                 var itinerarie = itineraries[i];
-
+                        
                 if (itinerarie.vehicle.last_location) {
-
-
+                    console.log(itinerarie)
+                    console.log(itinerarie.driver.user.name)
+                    console.log(itinerarie.situation.vehicle)
                     var myLatLng = new google.maps.LatLng(itinerarie.vehicle.last_location.latitude, itinerarie.vehicle.last_location.longitude);
 
 
                     var contentString = '<div id="content">' +
                         '<div id="siteNotice">' +
                         '</div>' +
-                        '<h1 id="firstHeading" class="firstHeading">'+ itinerarie.driver.name + '</h1>' +
+                        '<h3 id="firstHeading" class="firstHeading">'+ itinerarie.driver.user.name + '</h3>' +
                         '<div id="bodyContent">' +
-                        '<p><b>' + itinerarie.situation.vehicle + ':</b> nome da tarefa.' +
+                        '<p>Em <b>' + itinerarie.situation.vehicle + '</b>' +
                         '<hr>' +
-                        '<b>Veículo:</b>' + itinerarie.vehicle.company_id + '<b>Placa:</b> ' + itinerarie.vehicle.license_plate + '<b>Modelo:</b> ' + itinerarie.vehicle.model +
+                        '<b>Veículo:</b>' + itinerarie.vehicle.company_id + '><br><b>Placa:</b> ' + itinerarie.vehicle.license_plate + '<br><b>Modelo:</b> ' + itinerarie.vehicle.model +
                         '<hr>' +
                         '<p><b>Tempo Gasto:</b> 50 minutos | <b>Bateria:</b> ' + itinerarie.vehicle.battery + '%</p>' +
                         '</div>' +
@@ -284,10 +285,7 @@
                     });
 
 
-                    var infowindow = new google.maps.InfoWindow({
-                        content: itinerarie.status,
-                        maxWidth: 200
-                    });
+                    
                     var icone = coleta_gray;
 
                     if(itinerarie.situation.vehicle == "Coleta") {
@@ -325,8 +323,8 @@
 
                 google.maps.event.addListener(marker, 'click', (function(marker, i) {
                     return function() {
-                        console.log(itinerarie)
-                        infowindow.setContent(itinerarie.status);
+                        
+                        infowindow.setContent(contentString);
                         infowindow.open(map, marker);
                     }
                 })(marker, i));
@@ -415,246 +413,6 @@
     </script>
 
 
-    <!-- <script>
-        // The following example creates complex markers to indicate vehicles near
-        // Sydney, NSW, Australia. Note that the anchor is set to (0,32) to correspond
-        // to the base of the flagpole.
-                 
-        var zoomLevel = 15;
-
-        function initMap() {
-            var map = new google.maps.Map(document.getElementById('google-map'), {
-                zoom: 15,
-                center: {
-                    lat: -5.8321357,
-                    lng: -35.2053167
-                },
-                disableDefaultUI: true
-            });
-            
-            $.ajax({
-              url:'https://epturc-levo.herokuapp.com/api/v1/vehicles',
-              type:'json',
-              method: 'GET',
-              success: (vehicles) =>{setMarkers(vehicles,map)},
-              error: (err) => console.log(err)
-            })
-            
-            $(document).ready(function () {
-        $('#map-zoom-in').click(function () {
-            map.setZoom(++zoomLevel);
-        });
-        $('#map-zoom-out').click(function () {
-            map.setZoom(--zoomLevel);
-        });
-    });
-            
-            
-            
-        }
-
-        function setMarkers(vehicles, map) {
-            
-            
-            for (let i = 0; i < vehicles.length; i++) {
-                var vehicle = null;
-                var marker = new google.maps.Marker({
-        
-                    map: map
-
-                });
-            }
-            
-            var moving = {
-                url: 'https://i.imgur.com/i5fv2wL.png',
-                size: new google.maps.Size(32, 32),
-                origin: new google.maps.Point(0, 0),
-                anchor: new google.maps.Point(0, 32),
-            };
-
-            var stopped = {
-                url: 'https://i.imgur.com/g5K4COo.png',
-                size: new google.maps.Size(32, 32),
-                origin: new google.maps.Point(0, 0),
-                anchor: new google.maps.Point(0, 32),
-            };
-
-            var offline = {
-                url: 'https://i.imgur.com/g5K4COo.png',
-                size: new google.maps.Size(32, 32),
-                origin: new google.maps.Point(0, 0),
-                anchor: new google.maps.Point(0, 32),
-            };
-            
-          
-            var image = {
-                url: 'https://i.imgur.com/i5fv2wL.png',
-                // This marker is 20 pixels wide by 32 pixels high.
-                size: new google.maps.Size(32, 32),
-                // The origin for this image is (0, 0).
-                origin: new google.maps.Point(0, 0),
-                // The anchor for this image is the base of the flagpole at (0, 32).
-                anchor: new google.maps.Point(0, 32),
-            };
-            // Shapes define the clickable region of the icon. The type defines an HTML
-            // <area> element 'poly' which traces out a polygon as a series of X,Y points.
-            // The final coordinate closes the poly by connecting to the first coordinate.
-            var shape = {
-                coords: [1, 1, 1, 20, 18, 20, 18, 1],
-                type: 'poly'
-            };
-            
-            for (let i = 0; i < vehicles.length; i++) {
-                var vehicle = vehicles[i];
-                var marker = new google.maps.Marker({
-                    position: {
-                        lat: parseFloat(vehicle.last_location.latitude),
-                        lng: parseFloat(vehicle.last_location.longitude)
-                    },
-                    map: map,
-                    animation: google.maps.Animation.DROP,
-                    icon: image,
-                    shape: shape,
-                    title: vehicle.company_id,
-                    zIndex: 2,
-                    label: {
-                        text: vehicle.id,
-                        color: 'white'
-                    }
-
-                });
-            }
-                var infowindow = new google.maps.InfoWindow();
- 
-                google.maps.event.addListener(marker, 'click', (function(marker,content,infowindow) {
-                    return function() {
-                        infowindow.setContent(vehicle.id);
-                        infowindow.open(map, marker);
-                    };
-                })(marker,infowindow));
-        }
-        
-        
-        setInterval(function () {
-		
-	}, 4000);
-                
-
-    </script> -->
-
-    <!--<script>
-        // The following example creates complex markers to indicate vehicles near
-        // Sydney, NSW, Australia. Note that the anchor is set to (0,32) to correspond
-        // to the base of the flagpole.
-
-        var zoomLevel = 15;
-
-
-
-        function initMap() {
-            var map = new google.maps.Map(document.getElementById('google-map'), {
-                zoom: 15,
-                center: {
-                    lat: -5.8321357,
-                    lng: -35.2053167
-                },
-                disableDefaultUI: true
-            });
-
-            $.ajax({
-                url: 'https://epturc-levo.herokuapp.com/api/v1/vehicles',
-                type: 'json',
-                method: 'GET',
-                success: (vehicles) => {
-                    setMarkers(vehicles, map)
-                },
-                error: (err) => console.log(err)
-            })
-
-            $(document).ready(function() {
-                $('#map-zoom-in').click(function() {
-                    map.setZoom(++zoomLevel);
-                });
-                $('#map-zoom-out').click(function() {
-                    map.setZoom(--zoomLevel);
-                });
-            });
-
-
-
-        }
-
-        function setMarkers(vehicles, map) {
-
-
-            var moving = {
-                url: 'https://i.imgur.com/i5fv2wL.png',
-                size: new google.maps.Size(32, 32),
-                origin: new google.maps.Point(0, 0),
-                anchor: new google.maps.Point(0, 32),
-            };
-
-            var stopped = {
-                url: 'https://i.imgur.com/g5K4COo.png',
-                size: new google.maps.Size(32, 32),
-                origin: new google.maps.Point(0, 0),
-                anchor: new google.maps.Point(0, 32),
-            };
-
-            var offline = {
-                url: 'https://i.imgur.com/g5K4COo.png',
-                size: new google.maps.Size(32, 32),
-                origin: new google.maps.Point(0, 0),
-                anchor: new google.maps.Point(0, 32),
-            };
-
-            var image = {
-                url: 'https://i.imgur.com/i5fv2wL.png',
-                // This marker is 20 pixels wide by 32 pixels high.
-                size: new google.maps.Size(32, 32),
-                // The origin for this image is (0, 0).
-                origin: new google.maps.Point(0, 0),
-                // The anchor for this image is the base of the flagpole at (0, 32).
-                anchor: new google.maps.Point(0, 32),
-            };
-
-            var shape = {
-                coords: [1, 1, 1, 20, 18, 20, 18, 1],
-                type: 'poly'
-            };
-
-            for (let i = 0; i < vehicles.length; i++) {
-                var vehicle = vehicles[i];
-                
-                console.log(vehicle.last_location);
-
-                if(vehicle.last_location) {
-                    console.log(vehicle.status);
-                    var marker = new google.maps.Marker({
-                        position: {
-                            lat: parseFloat(vehicle.last_location.latitude),
-                            lng: parseFloat(vehicle.last_location.longitude)
-                        },
-                        map: map,
-                        icon: vehicle.status,
-                        shape: shape,
-                        title: vehicle.company_id,
-                        zIndex: 2
-
-                    });
-                }
-            }
-            var infowindow = new google.maps.InfoWindow();
-
-            google.maps.event.addListener(marker, 'click', (function(marker, content, infowindow) {
-                return function() {
-                    infowindow.setContent(vehicle.id);
-                    infowindow.open(map, marker);
-                };
-            })(marker, infowindow));
-        }
-
-    </script> -->
 </body>
 
 </html>

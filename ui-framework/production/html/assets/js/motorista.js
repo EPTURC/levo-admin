@@ -153,23 +153,28 @@ $(document).ready(() => {
     function getDrivers(){
         $.ajax({
             method:"GET",
-            url:baseUrl+"drivers",
+            url:baseUrl+"users",
             success: (result) => {
                 result.map(driver => {
-                    
+                    // if(!driver.cpf){
+                    //     driver.cpf = "10500842418"
+                    // }
+                    // if(!driver.rg){
+                    //     driver.rg = "248764"
+                    // }
                     $('#dataDrivers').append(`
                                     <tr>
                                         <td class="v-align-middle" style="display:none">
                                             <p>${driver.id}</p>
                                         </td>
                                         <td class="v-align-middle">
-                                            <p>${driver.user.name || "desconhecido"}</p>
+                                            <p>${driver.name || "desconhecido"}</p>
                                         </td>
                                         <td class="v-align-middle">
-                                            <p>${driver.user.cpf || "desconhecido"}</p>
+                                            <p>${driver.cpf || "desconhecido"}</p>
                                         </td>
                                         <td class="v-align-middle">
-                                            <p>${driver.user.rg || "desconhecido"}</p>
+                                            <p>${driver.rg || "desconhecido"}</p>
                                         </td>
                                         
                                     </tr>
