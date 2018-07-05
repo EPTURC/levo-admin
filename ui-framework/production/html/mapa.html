@@ -195,8 +195,8 @@
 
 
     <script type="text/javascript">
-        var coleta = {
-            url: 'https://i.imgur.com/bkQg3bo.png',
+        var coleta_green = {
+            url: 'https://i.imgur.com/lphMAiu.png',
             // This marker is 20 pixels wide by 32 pixels high.
             size: new google.maps.Size(32, 32),
             // The origin for this image is (0, 0).
@@ -204,57 +204,132 @@
             // The anchor for this image is the base of the flagpole at (0, 32).
             anchor: new google.maps.Point(0, 32),
         };
-        
-        
-        var entrega = {
-                url: 'https://i.imgur.com/ZiLQrIN.png',
-                size: new google.maps.Size(32, 32),
-                origin: new google.maps.Point(0, 0),
-                anchor: new google.maps.Point(0, 32),
-            };
+
+        var coleta_red = {
+            url: 'https://i.imgur.com/WkzASNV.png',
+            // This marker is 20 pixels wide by 32 pixels high.
+            size: new google.maps.Size(32, 32),
+            // The origin for this image is (0, 0).
+            origin: new google.maps.Point(0, 0),
+            // The anchor for this image is the base of the flagpole at (0, 32).
+            anchor: new google.maps.Point(0, 32),
+        };
+
+        var coleta_gray = {
+            url: 'https://i.imgur.com/NMisCVU.png',
+            // This marker is 20 pixels wide by 32 pixels high.
+            size: new google.maps.Size(32, 32),
+            // The origin for this image is (0, 0).
+            origin: new google.maps.Point(0, 0),
+            // The anchor for this image is the base of the flagpole at (0, 32).
+            anchor: new google.maps.Point(0, 32),
+        };
+
+
+        var entrega_green = {
+            url: 'https://i.imgur.com/e5Dl27o.png',
+            size: new google.maps.Size(32, 32),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(0, 32),
+        };
+
+        var entrega_red = {
+            url: 'https://i.imgur.com/iJtJKxS.png',
+            size: new google.maps.Size(32, 32),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(0, 32),
+        };
+
+        var entrega_gray = {
+            url: 'https://i.imgur.com/cLq646u.png',
+            size: new google.maps.Size(32, 32),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(0, 32),
+        };
+
 
 
 
         var map;
         var markers = []; // Create a marker array to hold your markers
-        
+
 
         function setMarkers(itineraries) {
-            
+
             for (var i = 0; i < itineraries.length; i++) {
                 var itinerarie = itineraries[i];
-                
-                if(itinerarie.vehicle.last_location){
-                    
-                
-                var myLatLng = new google.maps.LatLng(itinerarie.vehicle.last_location.latitude, itinerarie.vehicle.last_location.longitude);
-                
-                var infowindow = new google.maps.InfoWindow({
-                    content: itinerarie.status
-                });
-                
-                    var marker = new google.maps.Marker({
-                    position: myLatLng,
-                    map: map,
-                    icon: itinerarie.situation.vehicle == "Coleta" ? coleta : entrega,
-                    title: itinerarie.vehicle.company_id,
-                    zIndex: 2,
-                    label: {
-                        text: itinerarie.vehicle.id.toString(),
-                        color: 'white'
+
+                if (itinerarie.vehicle.last_location) {
+
+
+                    var myLatLng = new google.maps.LatLng(itinerarie.vehicle.last_location.latitude, itinerarie.vehicle.last_location.longitude);
+
+
+                    var contentString = '<div id="content">' +
+                        '<div id="siteNotice">' +
+                        '</div>' +
+                        '<h1 id="firstHeading" class="firstHeading">'+ itinerarie.driver.name + '</h1>' +
+                        '<div id="bodyContent">' +
+                        '<p><b>' + itinerarie.situation.vehicle + ':</b> nome da tarefa.' +
+                        '<hr>' +
+                        '<b>Veículo:</b>' + itinerarie.vehicle.company_id + '<b>Placa:</b> ' + itinerarie.vehicle.license_plate + '<b>Modelo:</b> ' + itinerarie.vehicle.model +
+                        '<hr>' +
+                        '<p><b>Tempo Gasto:</b> 50 minutos | <b>Bateria:</b> ' + itinerarie.vehicle.battery + '%</p>' +
+                        '</div>' +
+                        '</div>';
+
+                    var infowindow = new google.maps.InfoWindow({
+                        content: contentString,
+                        maxWidth: 200
+                    });
+
+
+                    var infowindow = new google.maps.InfoWindow({
+                        content: itinerarie.status,
+                        maxWidth: 200
+                    });
+                    var icone = coleta_gray;
+
+                    if(itinerarie.situation.vehicle == "Coleta") {
+                        if(itinerarie.situation.color == "green") {
+                            icone = coleta_green;
+                        } else if(itinerarie.situation.color == "red") {
+                            icone = coleta_red;
+                        } else {
+                            icone = coleta_gray;
+                        }
+                    } else {
+                        if(itinerarie.situation.color == "green") {
+                            icone = entrega_green;
+                        } else if(itinerarie.situation.color == "red") {
+                            icone = entrega_red;
+                        } else {
+                            icone = entrega_gray;
+                        }
                     }
-                });
-                
-                
-            }
-            
-        google.maps.event.addListener(marker, 'click', (function(marker, i) {
-            return function() {
-                console.log(itinerarie)
-            infowindow.setContent(itinerarie.status);
-            infowindow.open(map, marker);
-        }
-})(marker, i));
+
+                    var marker = new google.maps.Marker({
+                        position: myLatLng,
+                        map: map,
+                        icon: icone,
+                        title: itinerarie.vehicle.company_id,
+                        zIndex: 2,
+                        label: {
+                            text: itinerarie.vehicle.id.toString(),
+                            color: 'white'
+                        }
+                    });
+
+
+                }
+
+                google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                    return function() {
+                        console.log(itinerarie)
+                        infowindow.setContent(itinerarie.status);
+                        infowindow.open(map, marker);
+                    }
+                })(marker, i));
 
 
                 // Push marker to markers array
@@ -267,28 +342,28 @@
             // Loop through markers and set map to null for each
 
             $.ajax({
-                method:"GET",
-                url:"https://epturc-levo.herokuapp.com/api/v1/itineraries" ,
-                success:(itineraries) =>{
+                method: "GET",
+                url: "https://epturc-levo.herokuapp.com/api/v1/itineraries",
+                success: (itineraries) => {
                     for (var i = 0; i < markers.length; i++) {
 
                         markers[i].setMap(null);
                     }
 
-                        // Reset the markers array
-                        markers = [];
-                        
+                    // Reset the markers array
+                    markers = [];
+
                     setMarkers(itineraries)
                 },
-                error:(error)=>{
+                error: (error) => {
                     console.log(error)
                 }
             })
-            
+
         }
 
         function initialize() {
-            
+
             var mapOptions = {
                 zoom: 15,
                 center: {
@@ -298,22 +373,22 @@
                 disableDefaultUI: true
             }
 
-           map = new google.maps.Map(document.getElementById('google-map'), mapOptions);
-            
+            map = new google.maps.Map(document.getElementById('google-map'), mapOptions);
+
             $.ajax({
-                method:"GET",
-                url:"https://epturc-levo.herokuapp.com/api/v1/itineraries" ,
-                success:(itineraries) =>{
-                    
+                method: "GET",
+                url: "https://epturc-levo.herokuapp.com/api/v1/itineraries",
+                success: (itineraries) => {
+
                     for (var i = 0; i < markers.length; i++) {
 
                         markers[i].setMap(null);
                     }
-                        markers = [];
-                        
+                    markers = [];
+
                     setMarkers(itineraries)
                 },
-                error:(error)=>{
+                error: (error) => {
                     console.log(error)
                 }
             })
